@@ -1,14 +1,18 @@
 import React from 'react';
 import {Text} from 'react-native';
+import DispensariesIndex from '../components/dispensariesIndex';
 
-// create a provider to get the data from the dispensaries
-// import or implement uuid alternative
-// create and import dispensariesItem componenet
+// create the dispensary index comp
 
 
 
 const Dispensaries = () => {
-  return <Text>Hello, I am your dispensaries!</Text>;
+  return (
+    <>
+      <DispensariesIndex/>
+    </>
+  )
+  
 };
 
 export default Dispensaries;
