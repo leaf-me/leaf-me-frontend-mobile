@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './views/Home'
 import Dispensaries from './views/Dispensaries'
+import Provider from './Providers/Provider';
+
 
 const Stack = createNativeStackNavigator()
 
@@ -11,10 +13,12 @@ const Stack = createNativeStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
+      <Provider>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home}/>
         <Stack.Screen name="Dispensaries" component={Dispensaries}/>
       </Stack.Navigator>
+      </Provider>
     </NavigationContainer>
   );
 }

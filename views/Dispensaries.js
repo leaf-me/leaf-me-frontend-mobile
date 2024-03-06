@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text} from 'react-native';
-import DispensariesIndex from '../components/dispensariesIndex';
+import { useContextProvider } from '../Providers/Provider';
+import DispensariesIndex from '../components/DispensariesIndex';
 
 // create the dispensary index comp
 
