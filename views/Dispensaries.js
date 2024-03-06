@@ -1,6 +1,7 @@
 import React from 'react';
 import { useContextProvider } from '../Providers/Provider';
 import DispensariesIndex from '../components/DispensariesIndex';
+import DispensariesProvider from '../Providers/DispensariesProvider';
 
 // create the dispensary index comp
 
@@ -9,7 +10,9 @@ import DispensariesIndex from '../components/DispensariesIndex';
 const Dispensaries = () => {
   return (
     <>
-      <DispensariesIndex/>
+      <DispensariesProvider>
+        <DispensariesIndex/>
+      </DispensariesProvider>
     </>
   )
   
