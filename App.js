@@ -1,14 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { NavigationContainer} from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StyleSheet, Text, View } from 'react-native';
-import Routes from './components/Routes'; // Update the path to your Home component
+import Home from './views/Home'
+import Dispensaries from './views/Dispensaries'
+
+const Stack = createNativeStackNavigator()
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Routes />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home}/>
+        <Stack.Screen name="Dispensaries" component={Dispensaries}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
