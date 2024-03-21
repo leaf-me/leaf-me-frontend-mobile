@@ -12,7 +12,7 @@ export function useContextProvider() {
 const Provider = ({ children }) => {
   const [authToken, setAuthToken] = useState('abcdtoken');
   const [userID, setUserID] = useState('1');
-  const API = 'http://192.168.1.187:3003'
+  const API = 'http://192.168.1.179:3003'
 
   // useEffect for fetching data...
 

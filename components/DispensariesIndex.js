@@ -2,29 +2,54 @@ import React from 'react';
 import { View, FlatList } from 'react-native';
 import { useDisProvider } from '../Providers/DispensariesProvider.js';
 import { useContextProvider } from '../Providers/Provider.js';
-import { Text } from 'react-native';
+import { Text, Image } from 'react-native';
 import { v4 as uuidv4 } from "uuid";
 import styles from './DispensariesIndexStyles.js'; // Import the StyleSheet
+import disp1Img from '../assets/dis1.png'
+import disp2Img from '../assets/dis2.png'
 
-// map and render data
+
+// helper function to check if given string is the correct image, then returns the correct image
+// for use to display correct dispensary image based on the key value for image key
+// takes in imageFileName as first param
+// takes in the import of each image as the second and third arguments
+const findImageThenRender = (imageFileName, disp1Img, disp2Img) => {
+    if(imageFileName === 'image1.jpg'){
+        return disp1Img
+    } else if (imageFileName === 'image2.jpg'){
+        return disp2Img
+    } else {
+        return null
+    }
+}
 
 const DispensariesIndex = () => {
-    const { userID, API, authToken } = useContextProvider()
     const { dispensaries } = useDisProvider() 
 
-    console.log(dispensaries)
+    console.log('data present',dispensaries)
 
 
-    const Item = ({name, address, deliveryfee,}) => ( 
+    const Item = ({name, address, deliveryfee, image}) => {
+
+        const imageSrc = findImageThenRender(image, disp1Img, disp2Img)
+
+
+        return (
         <View style={styles.item}>
+            <Image
+            style={{ height: 300, width: 300}}
+            source={imageSrc}
+            />
             <Text style={styles.title}>{name}</Text>
             <Text style={styles.title}>{address}</Text>
             <Text style={styles.title}>{deliveryfee}</Text>
         </View>
-    )
+        )
+        
+}
 
     const renderItem = ({item}) => (
-        <Item name={item.name} address={item.address} deliveryfee={item.deliveryfee}/>
+        <Item image={item.image} name={item.name} address={item.address} deliveryfee={item.deliveryfee}/>
     )
 
     /**
@@ -40,9 +65,7 @@ const DispensariesIndex = () => {
                 keyExtractor={(item) => item.id}
                 />
             )}
-
-            
-            
+            <Text>Hello</Text>
         </View>
     );
 };   
