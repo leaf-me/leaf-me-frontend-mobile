@@ -8,16 +8,24 @@ const styles = StyleSheet.create({
         height: 225
     },
     divider: {
-        height: 45
+        backgroundColor: 'white',
+        height: 35
     },
     divider2: {
-        width: screenWidth/1.96  
+        width: screenWidth/1.96
     },
     row1: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'white', // temp for visual aid
         height: 80,
+    },
+    row2: {
+        marginTop: -15,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'white', // temp for visual aid
+        height: 60,
     }
 
 })
