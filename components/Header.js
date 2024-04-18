@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, Image, Dimensions , View} from 'react-native';
 import styles from './HeaderStyles.js'
 
+
 // display LEAF ME text
 // style the dimensions of the header
 // display basket if userID is present
@@ -15,7 +16,11 @@ import styles from './HeaderStyles.js'
 
 const Header = () => {
     return (
-        <View>
+        <View style={styles.container}>
+            <View style={styles.divider}>{/* divider for space between native top screen and start of header */}</View> 
+            <View style={styles.row1}>
+                
+            </View>
             <Text>Leaf Me</Text>
             
         </View>
