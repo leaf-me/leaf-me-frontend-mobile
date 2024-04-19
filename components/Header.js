@@ -10,6 +10,7 @@ import SearchBar from './SearchBar.js';
 // display LEAF ME text
 // style the dimensions of the header
 // add the back button and delivery now with delivery address
+// adding searchbar
 // display basket if userID is present
 // if userID is not present; dont render button
 
