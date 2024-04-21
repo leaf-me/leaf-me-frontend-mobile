@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Home from './views/Home'
 import Dispensaries from './views/Dispensaries'
 import Provider from './Providers/Provider';
+import { SearchToggleProvider } from './Providers/SearchToggleProvider';
 
 
 const Stack = createNativeStackNavigator()
@@ -14,14 +15,19 @@ export default function App() {
   return (
     <NavigationContainer>
       <Provider>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Dispensaries" component={Dispensaries} options={{ headerShown: false }}/>
+        <SearchToggleProvider>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Dispensaries" component={Dispensaries} options={{ headerShown: false }}/>
       </Stack.Navigator>
+
+        </SearchToggleProvider>
       </Provider>
     </NavigationContainer>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

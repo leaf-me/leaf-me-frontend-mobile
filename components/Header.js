@@ -5,12 +5,13 @@ import BackButton from './BackButton.js';
 import DeliveryOptions from './DeliveryOptions.js';
 import SearchBar from './SearchBar.js';
 
-
-
 // display LEAF ME text
 // style the dimensions of the header
 // add the back button and delivery now with delivery address
 // adding searchbar
+// adding search toggle to switch between all items and dispesneary items
+// adding filter buttons by creating modular filterButton component
+
 // display basket if userID is present
 // if userID is not present; dont render button
 

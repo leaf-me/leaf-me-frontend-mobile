@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
+import { useEffect, useState } from 'react';
 import { useDisProvider } from '../Providers/DispensariesProvider.js';
+import { useSearchToggle } from '../Providers/SearchToggleProvider.js';
 import { useContextProvider } from '../Providers/Provider.js';
 import { Text, Image, Dimensions } from 'react-native';
 import { v4 as uuidv4 } from "uuid";
@@ -8,6 +10,8 @@ import styles from './DispensariesIndexStyles.js'; // Import the StyleSheet
 import disp1Img from '../assets/dis1.png'
 import disp2Img from '../assets/dis2.png'
 import disp3Img from '../assets/dis3.png'
+
+
 
 
 // helper function to check if given string is the correct image, then returns the correct image
@@ -26,10 +30,16 @@ const findImageThenRender = (imageFileName, disp1Img, disp2Img, disp3Img) => {
 
 const DispensariesIndex = () => {
     const screenWidth = Dimensions.get('window').width;
-
     const { dispensaries } = useDisProvider() 
+    const { viewDispensaries } = useSearchToggle(); // Access viewDispensaries from the context
 
     console.log('data present',dispensaries)
+
+    useEffect(() => {
+        // Log whenever the viewDispensaries state changes
+        console.log('viewDispensaries:', viewDispensaries);
+    }, [viewDispensaries]); // Run this effect whenever viewDispensaries changes
+
 
     // dispensaryItem Component:
     const Item = ({name, address, deliveryfee, image}) => {
@@ -61,12 +71,14 @@ const DispensariesIndex = () => {
      */
     return (
         <View style={styles.container}>
-            {dispensaries && (
+            { viewDispensaries && dispensaries ? (
                 <FlatList
                 data={dispensaries}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 />
+            ) : (
+                <Text>Showing all items</Text>
             )}
             <Text>Hello</Text>
         </View>
