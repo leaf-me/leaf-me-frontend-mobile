@@ -12,7 +12,7 @@ export function useContextProvider() {
 const Provider = ({ children }) => {
   const [authToken, setAuthToken] = useState('abcdtoken');
   const [userID, setUserID] = useState('1');
-  const API = 'http://192.168.3.79:3003'
+  const API = 'https://leaf-me-0183706079ed.herokuapp.com'
 
   // useEffect for fetching data...
 

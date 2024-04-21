@@ -13,7 +13,9 @@ const DispensariesProvider = ({children}) => {
     const [dispensaryID, setDispensaryID] = useState(null)
     const [dispensaryItems, setDispensaryItems] = useState({}) 
 
+
     useEffect(() => {
+        console.log(`${API}/dispesnary`)
         axios
             .get(`${API}/dispensary`)
             .then(({ data }) => {
