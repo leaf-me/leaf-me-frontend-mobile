@@ -10,9 +10,6 @@ import disp1Img from '../assets/dis1.png'
 import disp2Img from '../assets/dis2.png'
 import disp3Img from '../assets/dis3.png'
 
-
-
-
 // helper function to check if given string is the correct image, then returns the correct image
 // for use to display correct dispensary image based on the key value for image key
 // takes in imageFileName as first param

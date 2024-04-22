@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+    container: {
+        maxHeight: 520,
+        backgroundColor: 'red',
+    },
     item: {
         backgroundColor: "white",
         padding: 2,
