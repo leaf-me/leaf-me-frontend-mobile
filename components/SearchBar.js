@@ -1,7 +1,6 @@
 import { View, Dimensions, TextInput, Image } from "react-native";
 import searchIcon from '../assets/search-icon.png'
 import SearchToggle from "./SearchToggle";
-import { SearchToggleProvider } from "../Providers/SearchToggleProvider";
 const screenWidth = Dimensions.get('window').width;
 
 
@@ -23,9 +22,7 @@ const SearchBar = () => {
                 width: 20
             }} source={searchIcon}/>
             <TextInput placeholder="Search Leaf Me"/>
-            <SearchToggleProvider>
-                <SearchToggle/>
-            </SearchToggleProvider>
+            <SearchToggle/>
         </View>
     );
 };

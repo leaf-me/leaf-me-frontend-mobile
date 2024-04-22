@@ -19,8 +19,7 @@ export default function App() {
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Dispensaries" component={Dispensaries} options={{ headerShown: false }}/>
-      </Stack.Navigator>
-
+          </Stack.Navigator>
         </SearchToggleProvider>
       </Provider>
     </NavigationContainer>
