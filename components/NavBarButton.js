@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, Text } from 'react-native';
 import styles from './NavBarButtonStyles.js'
 
 
@@ -29,9 +29,21 @@ const NavBarButton = ({type}) => {
     }
     return (
         <TouchableOpacity style={styles.container} onPress={handlePress}>
-            {
-                iconImage && <Image source={iconImage} />
+            {/* {
+                iconImage && <Image source={iconImage} style={{
+                    width: 40,
+                    height: 40,
+                }} />
             }
+            {
+                type && <Text>
+                    {type}
+                </Text>
+            } */}
+            <View style={{ alignItems: 'center', paddingLeft: 30 }}>
+                {iconImage && <Image source={iconImage} style={{ width: 40, height: 40 }} />}
+                {type && <Text>{type}</Text>}
+            </View>
         </TouchableOpacity>
     );
 };

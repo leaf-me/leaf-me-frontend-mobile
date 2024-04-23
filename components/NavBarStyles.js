@@ -3,6 +3,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
+        paddingTop: 15,
         justifyContent: 'space-between',
         flexDirection: 'row',
         width: screenWidth,
