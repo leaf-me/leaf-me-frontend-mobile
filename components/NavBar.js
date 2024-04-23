@@ -6,9 +6,9 @@ import NavBarButton from './NavBarButton';
 const NavBar = () => {
     return (
         <View style={styles.container}>
-            <NavBarButton/>
-            <NavBarButton/>
-            <NavBarButton/>
+            <NavBarButton type={'Home'}/>
+            <NavBarButton type={'Cart'}/>
+            <NavBarButton type={'userSettings'}/>
         </View>
     );
 };
