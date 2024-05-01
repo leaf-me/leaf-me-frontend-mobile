@@ -3,6 +3,7 @@ import { View, FlatList } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useDisProvider } from '../Providers/DispensariesProvider.js';
 import { useSearchToggle } from '../Providers/SearchToggleProvider.js';
+import DispensariesItem from './DispensariesItem.js';
 import { Text, Image, Dimensions } from 'react-native';
 import { v4 as uuidv4 } from "uuid";
 import styles from './DispensariesIndexStyles.js'; // Import the StyleSheet
@@ -25,31 +26,14 @@ const findImageThenRender = (imageFileName, disp1Img, disp2Img, disp3Img) => {
 }
 
 const DispensariesIndex = () => {
-    const screenWidth = Dimensions.get('window').width;
     const { dispensaries } = useDisProvider() 
     const { viewDispensaries } = useSearchToggle(); // Access viewDispensaries from the context
 
-    // dispensaryItem Component:
-    const Item = ({name, address, deliveryfee, image}) => {
+  
 
-        const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
-
-
-        return (
-        <View style={styles.item}>
-            <Image
-            style={{ height: 225, width: screenWidth-5, borderRadius: 20}}
-            source={imageSrc}
-            />
-            <Text style={styles.title}>{name}</Text>
-            <Text style={styles.address}>{address}</Text>
-            <Text style={styles.price}>${deliveryfee} Delivery Fee</Text>
-        </View>
-        )
-}
-// End of dispensaryItem Component
     const renderItem = ({item}) => (
-        <Item image={item.image} name={item.name} address={item.address} deliveryfee={item.deliveryfee}/>
+        <DispensariesItem dispensaryId={item.id} image={item.image} name={item.name} address={item.address} deliveryfee={item.deliveryfee} />
+        // <Item image={item.image} name={item.name} address={item.address} deliveryfee={item.deliveryfee}/>
     )
 
     return (
