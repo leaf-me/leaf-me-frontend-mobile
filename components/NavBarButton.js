@@ -20,7 +20,7 @@ const NavBarButton = ({type}) => {
         case 'Cart':
             iconImage = require('../assets/NavCartIcon.png')
             break
-        case 'userSettings':
+        case 'Settings':
             iconImage = require('../assets/NavUserSettingsIcon.png')
             break
         default:
