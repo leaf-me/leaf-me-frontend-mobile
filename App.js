@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './views/Home'
 import Dispensaries from './views/Dispensaries'
+import DispensariesShow from './views/DispensariesShow';
 import Provider from './Providers/Provider';
 import { SearchToggleProvider } from './Providers/SearchToggleProvider';
 
@@ -19,6 +20,7 @@ export default function App() {
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Dispensaries" component={Dispensaries} options={{ headerShown: false }}/>
+            <Stack.Screen name="DispensariesShow" component={DispensariesShow} options={{ headerShown: false }}/>
           </Stack.Navigator>
         </SearchToggleProvider>
       </Provider>

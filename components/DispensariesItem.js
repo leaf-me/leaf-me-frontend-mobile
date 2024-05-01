@@ -1,10 +1,12 @@
 import React from 'react';
 import { Text, Image, View, FlatList } from 'react-native';
 import styles from './DispensariesIndexStyles'; // Import StyleSheet
-import disp1Img from "../assets/dis1.png"
-import disp2Img from "../assets/dis2.png"
 
 const DispensariesItem = ({disObject}) => {
+
+    // going to turn this into a clickable button
+    // on click link to dispensaryShow component
+    // dispensaryShow takes the disObject as a prop then renders the rest of the data needed to show on the show page.
 
 
 
