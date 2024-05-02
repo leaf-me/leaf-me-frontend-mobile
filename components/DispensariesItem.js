@@ -11,6 +11,16 @@ const DispensariesItem = ({name, address, deliveryfee, image, dispensaryId}) => 
     const screenWidth = Dimensions.get('window').width;
     const navigation = useNavigation();
 
+    /* 
+    ==============
+    Workload
+    ==============
+        1) make the cards presseable *COMPLETED*
+        2) render out the show page correctly
+        3) implement the search bar ( not this component )
+
+    */
+
     // on press; navigate to dispensaryShow
     const handlePress = () => {
         navigation.navigate('DispensariesShow', {dispensaryId: dispensaryId});

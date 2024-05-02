@@ -12,6 +12,8 @@ const DispensariesProvider = ({children}) => {
     const [dispensaries, setDispensaries] = useState([])
     const [dispensaryID, setDispensaryID] = useState(null)
     const [dispensaryItems, setDispensaryItems] = useState({}) 
+    const [dispensaryShowID, setDispensaryShowID] = useState(null)
+    
 
 
     useEffect(() => {
@@ -25,6 +27,10 @@ const DispensariesProvider = ({children}) => {
             .catch((error) => console.error(error))
     },[dispensaryID]);
 
+    const setActiveDispensaryID = (dispensaryID) => {
+        setDispensaryShowID(dispensaryID)
+    }
+
 
     return (
             <DisContextD.Provider
@@ -36,7 +42,9 @@ const DispensariesProvider = ({children}) => {
                 dispensaryID,
                 setDispensaryID,
                 dispensaryItems,
-                setDispensaryItems
+                setDispensaryItems,
+                dispensaryShowID,
+                setActiveDispensaryID
             }}>
             {children}
             </DisContextD.Provider>  

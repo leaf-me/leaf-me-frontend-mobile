@@ -1,11 +1,18 @@
 import React from 'react';
-import { View } from 'react-native';
+import DispensariesProvider from '../Providers/DispensariesProvider';
+import Header from '../components/Header.js';
+import DispensaryShowView from '../components/DispensaryShowView.js';
+
 
 const DispensariesShow = () => {
+
     return (
-        <View>
-            
-        </View>
+        <>
+            <Header/>
+            <DispensariesProvider>
+                <DispensaryShowView/>
+            </DispensariesProvider>
+        </>
     );
 };
 
