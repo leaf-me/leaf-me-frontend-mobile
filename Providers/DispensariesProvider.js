@@ -44,6 +44,7 @@ const DispensariesProvider = ({children}) => {
                 dispensaryItems,
                 setDispensaryItems,
                 dispensaryShowID,
+                setDispensaryShowID,
                 setActiveDispensaryID
             }}>
             {children}

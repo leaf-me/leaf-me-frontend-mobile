@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Text, Image, View, Dimensions, TouchableOpacity } from 'react-native';
+import { useDisProvider } from '../Providers/DispensariesProvider';
 import styles from './DispensariesIndexStyles'; // Import StyleSheet
 import { useNavigation } from '@react-navigation/native';
 import disp1Img from '../assets/dis1.png'
@@ -10,6 +11,8 @@ import disp3Img from '../assets/dis3.png'
 const DispensariesItem = ({name, address, deliveryfee, image, dispensaryId}) => {
     const screenWidth = Dimensions.get('window').width;
     const navigation = useNavigation();
+    const { setDispensaryShowID, dispensaryShowID } = useDisProvider() 
+
 
     /* 
     ==============
@@ -22,9 +25,11 @@ const DispensariesItem = ({name, address, deliveryfee, image, dispensaryId}) => 
     */
 
     // on press; navigate to dispensaryShow
-    const handlePress = () => {
+    const handlePress = async () => {
+        await setDispensaryShowID(dispensaryId)
+
         navigation.navigate('DispensariesShow', {dispensaryId: dispensaryId});
-        console.log('navigating to dispensary with id of:',dispensaryId)
+
     }
 
     // used to provide imageSrc to <Image/> component.
@@ -37,6 +42,11 @@ const DispensariesItem = ({name, address, deliveryfee, image, dispensaryId}) => 
             return disp3Img
         }
     }
+
+    useEffect(() => {
+        console.log('dispensaryID state:', dispensaryShowID);
+    }, [dispensaryShowID]);
+    
     // gives source file to each image through helper function
     const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
 
@@ -50,7 +60,6 @@ const DispensariesItem = ({name, address, deliveryfee, image, dispensaryId}) => 
                 <Text style={styles.address}>{address}</Text>
                 <Text style={styles.price}>${deliveryfee} Delivery Fee</Text>
             </View>
-
         </TouchableOpacity>
     );
 };
