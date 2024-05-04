@@ -7,6 +7,7 @@ import Dispensaries from './views/Dispensaries'
 import DispensariesShow from './views/DispensariesShow';
 import Provider from './Providers/Provider';
 import { SearchToggleProvider } from './Providers/SearchToggleProvider';
+import DispensariesProvider, { useDisProvider } from './Providers/DispensariesProvider';
 
 
 const Stack = createNativeStackNavigator()
@@ -17,11 +18,14 @@ export default function App() {
     <NavigationContainer>
       <Provider>
         <SearchToggleProvider>
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Dispensaries" component={Dispensaries} options={{ headerShown: false }}/>
-            <Stack.Screen name="DispensariesShow" component={DispensariesShow} options={{ headerShown: false }}/>
+          <DispensariesProvider>
+            <Stack.Navigator initialRouteName="Home">
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Dispensaries" component={Dispensaries} options={{ headerShown: false }}/>
+              <Stack.Screen name="DispensariesShow" component={DispensariesShow} options={{ headerShown: false }}/>
           </Stack.Navigator>
+            
+          </DispensariesProvider>
         </SearchToggleProvider>
       </Provider>
     </NavigationContainer>

@@ -12,10 +12,8 @@ const DispensariesShow = () => {
 
     return (
         <>
-            <Header/>
-            <DispensariesProvider>
-                <DispensaryShowView/>
-            </DispensariesProvider>
+        <Header/>
+        <DispensaryShowView/>
         </>
     );
 };

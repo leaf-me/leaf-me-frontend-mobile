@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import NavBar from '../components/NavBar';
 
 
-// create the dispensary index comp
 
 
 
@@ -14,9 +13,7 @@ const Dispensaries = () => {
   return (
     <>
       <Header/>
-        <DispensariesProvider>
           <DispensariesIndex/>
-        </DispensariesProvider>
         <NavBar/>
       
     </>
