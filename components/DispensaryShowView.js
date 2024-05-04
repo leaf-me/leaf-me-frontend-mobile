@@ -27,18 +27,21 @@ const DispensaryShowView = () => {
     useEffect(() => {
         console.log(dispensaryShowID)
         if (dispensaries && dispensaryShowID !== null && dispensaries[dispensaryShowID]) {
-            console.log(dispensaryShowID);
-            console.log('dispShowView UseEffect:', dispensaries[dispensaryShowID]);
+            // console.log(dispensaryShowID);
+            // console.log('dispShowView UseEffect:', dispensaries[dispensaryShowID]);
+
         }
     }, [dispensaries, dispensaryShowID]);
-    // const {name, address, deliveryfee, image} = dispensaries[dispensaryShowID]
-    // const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
+
+    const {name, address, deliveryfee, image} = dispensaries[dispensaryShowID]
+    const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
+
 
     return (
         <View>
-            {/* <Image
+            <Image
             style={{ height: 225, width: screenWidth-5, borderRadius: 20}}
-            source={imageSrc} /> */}
+            source={imageSrc} />
             
         </View>
     );
