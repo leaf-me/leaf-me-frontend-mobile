@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react';
-import { View, Image, Dimensions, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Image, Dimensions, Text, FlatList } from 'react-native';
+import { useContextProvider } from "../Providers/Provider";
 import { useDisProvider } from '../Providers/DispensariesProvider.js';
 import disp1Img from '../assets/dis1.png'
 import disp2Img from '../assets/dis2.png'
 import disp3Img from '../assets/dis3.png'
+import StoreItem from './StoreItem.js';
 
 
 
 const DispensaryShowView = () => {
+    const { API, axios } = useContextProvider();
     const { dispensaryShowID, dispensaries } = useDisProvider()
+    const [dispensaryItems, setDispensaryItems] = useState(null)
     const screenWidth = Dimensions.get('window').width;
     // console.log('dispensaries:',dispensaries)
     // Helper Functions ; should be in its own file during code clean up
@@ -21,28 +25,59 @@ const DispensaryShowView = () => {
             return disp3Img
         }
     }
-    // const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
-
 
     useEffect(() => {
         console.log(dispensaryShowID)
         if (dispensaries && dispensaryShowID !== null && dispensaries[dispensaryShowID]) {
-            // console.log(dispensaryShowID);
-            // console.log('dispShowView UseEffect:', dispensaries[dispensaryShowID]);
 
-        }
-    }, [dispensaries, dispensaryShowID]);
+            // retrieve all store items from related dispensary
+            axios
+                .get(`${API}/dispensary/${dispensaryShowID}/storeitems`)
+                .then(({data}) => {
+                    setDispensaryItems(data)
+                })
+                .catch((error) => {
+                    console.error(error)
+                },dispensaryShowID)
+            }
+        }, [dispensaries, dispensaryShowID]);
 
     const {name, address, deliveryfee, image} = dispensaries[dispensaryShowID]
     const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
+    console.log(dispensaryItems)
+
+    const renderItem = ({item}) => (
+        <StoreItem id={item.id} name={item.name} price={item.price} description={item.description}/>
+    )
+
+    // create the storeItem component
+
+    // create the flatlist
 
 
     return (
         <View>
+            <Text style={{
+                paddingBottom: 20,
+                fontSize: 20,
+                fontWeight: 'bold',
+                alignSelf: 'center'
+            }}>{name}
+            </Text>
             <Image
-            style={{ height: 225, width: screenWidth-5, borderRadius: 20}}
+            style={{ height: 225, width: screenWidth-5, borderRadius: 20, marginBottom: 20,}}
             source={imageSrc} />
-            <Text>{name}</Text>
+      
+            {
+                dispensaryItems ? (
+                    <FlatList
+                    data={dispensaryItems}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    />
+                ) : (
+                    <></>
+                )}
         </View>
     );
 };
