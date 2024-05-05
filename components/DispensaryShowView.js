@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Image, Dimensions } from 'react-native';
+import { View, Image, Dimensions, Text } from 'react-native';
 import { useDisProvider } from '../Providers/DispensariesProvider.js';
 import disp1Img from '../assets/dis1.png'
 import disp2Img from '../assets/dis2.png'
@@ -42,7 +42,7 @@ const DispensaryShowView = () => {
             <Image
             style={{ height: 225, width: screenWidth-5, borderRadius: 20}}
             source={imageSrc} />
-            
+            <Text>{name}</Text>
         </View>
     );
 };
