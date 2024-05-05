@@ -13,7 +13,6 @@ const DispensariesItem = ({name, address, deliveryfee, image, dispensaryId}) => 
     const navigation = useNavigation();
     const { setDispensaryShowID, dispensaryShowID } = useDisProvider() 
 
-
     /* 
     ==============
     Workload
