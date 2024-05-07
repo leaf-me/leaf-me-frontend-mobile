@@ -6,6 +6,7 @@ import flower1Img from '../assets/weedflower.png'
 import flower2Img from '../assets/weedflower2.png'
 import edible1Img from '../assets/weededible.png'
 import defaultImg from '../assets/weeddefault.png'
+import StoreItemShowCartButton from './StoreItemShowCartButton';
 
 
 
@@ -28,7 +29,7 @@ import defaultImg from '../assets/weeddefault.png'
 
 const StoreItemShow = () => {
     const route = useRoute();
-    const { name, description, price, type, image } = route.params;
+    const { name, description, price, type, image, id } = route.params;
     const screenWidth = Dimensions.get('window').width;
     const [quantity, setQuantity] = useState(1)
     console.log('storeItemShow:','name',name,'description',description,'price',price,'type',type,'image',image)
@@ -59,6 +60,7 @@ const StoreItemShow = () => {
             />
             <Text>{name}</Text>
             <StoreItemQuantity quantity={quantity} onQuantityChange={handleQuantityChange}/>
+            <StoreItemShowCartButton storeItemId={id} quantity={quantity} name={name} description={description} price={price} type={type} image={image} />
         </View>
     );
 };

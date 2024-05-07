@@ -6,13 +6,13 @@ import styles from './StoreItemStyles'
 // create the onPress function
 // create the StoreItemShow component; drill down the props
 
-const StoreItem = ({name, description, price, type, image }) => {
+const StoreItem = ({name, description, price, type, image, id }) => {
     const navigation = useNavigation();
 
     console.log('StoreItem:',name)
 
     const handlePress = () => {
-        navigation.navigate('StoreItemShow', {name: name, description: description, price: price, type: type, image: image})
+        navigation.navigate('StoreItemShow', { storeItemid: id, name: name, description: description, price: price, type: type, image: image})
     }
 
     return (
