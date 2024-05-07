@@ -3,6 +3,7 @@ import DispensariesProvider from '../Providers/DispensariesProvider';
 import Header from '../components/Header.js';
 import DispensaryShowView from '../components/DispensaryShowView.js';
 import { useDisProvider } from '../Providers/DispensariesProvider.js';
+import NavBar from '../components/NavBar.js';
 
 
 
@@ -14,6 +15,7 @@ const DispensariesShow = () => {
         <>
         <Header/>
         <DispensaryShowView/>
+        <NavBar/>
         </>
     );
 };

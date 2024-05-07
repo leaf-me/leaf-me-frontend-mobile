@@ -6,7 +6,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Home from './views/Home'
 import Dispensaries from './views/Dispensaries'
 import DispensariesShow from './views/DispensariesShow';
-import StoreItemShow from './components/StoreItemShow';
+import StoreItemShowView from './views/StoreItemShowView';
 // provider imports
 import Provider from './Providers/Provider';
 import { SearchToggleProvider } from './Providers/SearchToggleProvider';
@@ -26,13 +26,13 @@ export default function App() {
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Dispensaries" component={Dispensaries} options={{ headerShown: false }}/>
               <Stack.Screen name="DispensariesShow" component={DispensariesShow} options={{ headerShown: false }}/>
-              <Stack.Screen name="StoreItemShow" component={StoreItemShow} options={{ headerShown: false }}/>
+              <Stack.Screen name="StoreItemShow" component={StoreItemShowView} options={{ headerShown: false }}/>
           </Stack.Navigator>
-            
           </DispensariesProvider>
         </SearchToggleProvider>
       </Provider>
     </NavigationContainer>
+
   );
 }
 
