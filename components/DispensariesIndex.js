@@ -32,6 +32,7 @@ const DispensariesIndex = () => {
   
 
     const renderItem = ({item}) => (
+        
         <DispensariesItem dispensaryId={item.id} image={item.image} name={item.name} address={item.address} deliveryfee={item.deliveryfee} />
         // <Item image={item.image} name={item.name} address={item.address} deliveryfee={item.deliveryfee}/>
     )

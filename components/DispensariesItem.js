@@ -26,7 +26,6 @@ const DispensariesItem = ({name, address, deliveryfee, image, dispensaryId}) => 
     // on press; navigate to dispensaryShow
     const handlePress = async () => {
         await setDispensaryShowID(dispensaryId)
-
         navigation.navigate('DispensariesShow', {dispensaryId: dispensaryId});
 
     }

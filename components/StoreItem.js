@@ -1,10 +1,22 @@
 import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import styles from './StoreItemStyles'
 
-const StoreItem = ({name, description, price}) => {
+// create the onPress function
+// create the StoreItemShow component; drill down the props
+
+const StoreItem = ({name, description, price, type, image }) => {
+    const navigation = useNavigation();
+
+    console.log('StoreItem:',name)
+
+    const handlePress = () => {
+        navigation.navigate('StoreItemShow', {name: name, description: description, price: price, type: type, image: image})
+    }
+
     return (
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity onPress={handlePress} style={styles.item}>
             <View style={styles.itemColumns}>
                 <Text style={styles.itemTitle}>{name}</Text>
                 <Text style={styles.itemDescription}>{description}</Text>

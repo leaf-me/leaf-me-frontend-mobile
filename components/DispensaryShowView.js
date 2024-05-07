@@ -47,12 +47,12 @@ const DispensaryShowView = () => {
     console.log(dispensaryItems)
 
     const renderItem = ({item}) => (
-        <StoreItem id={item.id} name={item.name} price={item.price} description={item.description}/>
+        <StoreItem dispensaryID={item.dispensary_id} image={item.image} type={item.type} id={item.id} name={item.name} price={item.price} description={item.description}/>
     )
 
-    // create the storeItem component
-
-    // create the flatlist
+    // make the button clickable
+    // onclick navigate to the correct show page
+    // create the component
 
 
     return (
