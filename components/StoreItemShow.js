@@ -1,10 +1,12 @@
-import React from 'react';
-import { View, Image, Dimensions } from 'react-native';
+import React,{ useState } from 'react';
+import { View, Image, Dimensions, Text } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import StoreItemQuantity from './StoreItemQuantity';
 import flower1Img from '../assets/weedflower.png'
 import flower2Img from '../assets/weedflower2.png'
 import edible1Img from '../assets/weededible.png'
 import defaultImg from '../assets/weeddefault.png'
+
 
 
 // workload
@@ -28,6 +30,7 @@ const StoreItemShow = () => {
     const route = useRoute();
     const { name, description, price, type, image } = route.params;
     const screenWidth = Dimensions.get('window').width;
+    const [quantity, setQuantity] = useState(1)
     console.log('storeItemShow:','name',name,'description',description,'price',price,'type',type,'image',image)
 
     const findImageThenRenderBasedOnType = (type) => {
@@ -44,13 +47,18 @@ const StoreItemShow = () => {
     }
     const imageSrc = findImageThenRenderBasedOnType(type)
 
+    const handleQuantityChange = (newQuantity) => {
+        setQuantity(newQuantity)
+    }
+
     return (
         <View>
             <Image
             style={{height: 225, width: screenWidth-5, borderRadius: 20, marginBottom: 20,}}
             source={imageSrc}
             />
-            
+            <Text>{name}</Text>
+            <StoreItemQuantity quantity={quantity} onQuantityChange={handleQuantityChange}/>
         </View>
     );
 };
