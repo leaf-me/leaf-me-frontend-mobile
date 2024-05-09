@@ -7,8 +7,8 @@ import flower2Img from '../assets/weedflower2.png'
 import edible1Img from '../assets/weededible.png'
 import defaultImg from '../assets/weeddefault.png'
 import StoreItemShowCartButton from './StoreItemShowCartButton';
-
-
+import styles from './StoreItemShowStyles'
+ 
 
 // workload
 /*
@@ -52,13 +52,15 @@ const StoreItemShow = () => {
         setQuantity(newQuantity)
     }
 
+    console.log('styles',styles)
+
     return (
         <View>
             <Image
             style={{height: 225, width: screenWidth-5, borderRadius: 20, marginBottom: 20,}}
             source={imageSrc}
             />
-            <Text>{name}</Text>
+            <Text style={styles.title}>{name}</Text>
             <StoreItemQuantity quantity={quantity} onQuantityChange={handleQuantityChange}/>
             <StoreItemShowCartButton storeItemId={id} quantity={quantity} name={name} description={description} price={price} type={type} image={image} />
         </View>
