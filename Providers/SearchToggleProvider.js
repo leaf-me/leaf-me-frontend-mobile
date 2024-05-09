@@ -10,9 +10,10 @@ export const SearchToggleProvider = ({ children }) => {
     const [active, setActive] = useState(false);
     const [viewDispensaries, setViewDispensaries] = useState(true);
     const [searchText, setSearchText] = useState(null)
+    const [ searchResults, setSearchResults ] = useState(null)
+    const [ searchLoading, setSearchLoading ] = useState(false)
 
     console.log(searchText)
-
 
     // The active prop is specifically related to the state of the search toggle button, while the viewDispensaries prop is related to the state of what content is being displayed in the application. 
 
@@ -29,7 +30,7 @@ export const SearchToggleProvider = ({ children }) => {
     };
     
     return (
-    <SearchToggleContext.Provider value={{ active, viewDispensaries, toggleActive, toggleView, setViewDispensaries, searchText, setSearchText}}>
+    <SearchToggleContext.Provider value={{ active, viewDispensaries, toggleActive, toggleView, setViewDispensaries, searchText, setSearchText, searchResults, setSearchResults, searchResults, setSearchResults, setSearchLoading, searchLoading}}>
         {children}
     </SearchToggleContext.Provider>
   );

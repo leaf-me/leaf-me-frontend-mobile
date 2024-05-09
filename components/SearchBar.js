@@ -9,9 +9,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const SearchBar = () => {
     const { API, axios } = useContextProvider();
-    const { searchText, setSearchText } = useSearchToggle()
-    const [ searchResults, setSearchResults ] = useState(null)
-    const [ searchLoading, setSearchLoading ] = useState(false)
+    const { searchText, setSearchText, searchResults, setSearchResults, setSearchLoading, searchLoading } = useSearchToggle()
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
@@ -19,6 +17,10 @@ const SearchBar = () => {
                 searchAPI();
             }
         }, 1000); // Adjust the delay as needed
+
+        if(!searchText){
+            setSearchResults(null)
+        }
 
         return () => clearTimeout(delayDebounceFn);
     }, [searchText]);

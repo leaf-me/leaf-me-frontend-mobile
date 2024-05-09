@@ -27,9 +27,11 @@ const findImageThenRender = (imageFileName, disp1Img, disp2Img, disp3Img) => {
 
 const DispensariesIndex = () => {
     const { dispensaries } = useDisProvider() 
-    const { viewDispensaries } = useSearchToggle(); // Access viewDispensaries from the context
+    const { viewDispensaries, searchResults } = useSearchToggle(); // Access viewDispensaries from the context
 
-  
+    console.log('dispensariesIndex.js',viewDispensaries)
+    
+
 
     const renderItem = ({item}) => (
         
@@ -37,9 +39,63 @@ const DispensariesIndex = () => {
         // <Item image={item.image} name={item.name} address={item.address} deliveryfee={item.deliveryfee}/>
     )
 
+    useEffect(() => {
+        console.log('useEffect search results',searchResults)
+
+    },[dispensaries, searchResults])
+
+
+    // conditonaly render 2 differnent views;
+    // if searchResults is true; render related flatlist
+    // otherwise, render the all flatlist
     return (
+  
         <View style={styles.container}>
-            { !viewDispensaries && dispensaries ? (
+            {
+                searchResults ? (
+                    <FlatList
+                        data={searchResults}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id}
+                    />
+                ) : (
+                    <FlatList
+                        data={dispensaries}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id}
+                    />
+                )
+            }
+
+
+            {/* {!viewDispensaries && searchResults ? (
+                <>
+                <FlatList 
+                data={searchResults}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                />
+
+                </>
+            ) : (
+
+                // start of default
+                <>
+                {
+                    !viewDispensaries && dispensaries && !searchResults ? (
+                        <FlatList 
+                        data={dispensaries}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id}
+                        />
+                    ) : (
+                        <Text>Loading</Text>
+                    )
+                }
+                </>
+            )} */}
+            { /* OLD INDEX BELOW */}
+            {/* { !viewDispensaries && dispensaries ? (
                 <FlatList
                 data={dispensaries}
                 renderItem={renderItem}
@@ -47,7 +103,7 @@ const DispensariesIndex = () => {
                 />
             ) : (
                 <Text>Loading</Text>
-            )}
+            )} */}
         </View>
     );
 };   
