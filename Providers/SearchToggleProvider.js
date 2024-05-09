@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 // import { createContext, useState, useContext } from 'react-native'
 
 export const SearchToggleContext = createContext();
@@ -10,6 +10,8 @@ export const SearchToggleProvider = ({ children }) => {
     const [active, setActive] = useState(false);
     const [viewDispensaries, setViewDispensaries] = useState(true);
     const [searchText, setSearchText] = useState(null)
+
+    console.log(searchText)
 
 
     // The active prop is specifically related to the state of the search toggle button, while the viewDispensaries prop is related to the state of what content is being displayed in the application. 
