@@ -1,6 +1,7 @@
 import React,{ useState } from 'react';
 import { View, Image, Dimensions, Text } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { useContextProvider } from '../Providers/Provider';
 import StoreItemQuantity from './StoreItemQuantity';
 import flower1Img from '../assets/weedflower.png'
 import flower2Img from '../assets/weedflower2.png'
@@ -10,7 +11,7 @@ import StoreItemShowCartButton from './StoreItemShowCartButton';
 import styles from './StoreItemShowStyles'
  
 
-// workload
+// finished workload
 /*
     1) import image for each type
     2) use the findImageThenRender function to render each image
@@ -19,6 +20,32 @@ import styles from './StoreItemShowStyles'
     6) quantityButton component created
     7) quantity state effected by onPress of quanityButton
     8) addItemToCart button created with no functionality
+*/
+
+// workload
+/*
+    1) onPress of StoreItemShowCartButton:
+    
+    check if current user has a basket
+        Get current userID via Cont.Prov.
+        make call to backend for userID's basket,
+
+        API call to current users baskets
+        https://leaf-me-0183706079ed.herokuapp.com/users/{UserIDHERE}}/basket/
+        API Call to populate the users basket
+        https://leaf-me-0183706079ed.herokuapp.com/users/{UserIDHERE}}/basket/{basketIDHERE}/storeitems
+
+        if found; 
+            populate.
+        if not; 
+            create new basket
+            populate
+
+    2) if not, create a new one
+    3) if so, proceed to step 4
+    4) add the current item to the cart
+    5) navigate to last viewed dispenary
+
 */
 
 
@@ -30,6 +57,7 @@ import styles from './StoreItemShowStyles'
 const StoreItemShow = () => {
     const route = useRoute();
     const { name, description, price, type, image, id } = route.params;
+    const { userID, axios } = useContextProvider()
     const screenWidth = Dimensions.get('window').width;
     const [quantity, setQuantity] = useState(1)
     console.log('storeItemShow:','name',name,'description',description,'price',price,'type',type,'image',image)
@@ -62,7 +90,7 @@ const StoreItemShow = () => {
             />
             <Text style={styles.title}>{name}</Text>
             <StoreItemQuantity quantity={quantity} onQuantityChange={handleQuantityChange}/>
-            <StoreItemShowCartButton storeItemId={id} quantity={quantity} name={name} description={description} price={price} type={type} image={image} />
+            <StoreItemShowCartButton userID={userID} storeItemId={id} quantity={quantity} name={name} description={description} price={price} type={type} image={image} />
         </View>
     );
 };

@@ -1,15 +1,20 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import styles from './StoreItemShowCartButtonStyles'
+import { checkIfCurrentUserHasBasket, createNewBasket, populateBasketWithStoreItem } from './Functions';
 
-const StoreItemShowCartButton = ({name, price, id}) => {
 
-    // when user presses add cart
-    // peform API post to basket
-    // populate the basket of the current user
-    // navigate to the last screen
+const StoreItemShowCartButton = ({name, price, id,userID}) => {
 
-    const handlePress = (e) => {
+    const handlePress =  async () => {
+
+        // check if user has basket
+        const usersBasketID = await checkIfCurrentUserHasBasket(userID)
+        console.log('storeItemShow handlePress - return for checkIfCurrentUserHasBasket:',returnRes)
+
+        if(true){
+
+        }
         
     }
 
