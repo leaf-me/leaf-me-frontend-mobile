@@ -56,7 +56,7 @@ import styles from './StoreItemShowStyles'
 
 const StoreItemShow = () => {
     const route = useRoute();
-    const { name, description, price, type, image, id } = route.params;
+    const { name, description, price, type, image, id, dispensaryID } = route.params;
     const { userID, axios } = useContextProvider()
     const screenWidth = Dimensions.get('window').width;
     const [quantity, setQuantity] = useState(1)
@@ -90,7 +90,7 @@ const StoreItemShow = () => {
             />
             <Text style={styles.title}>{name}</Text>
             <StoreItemQuantity quantity={quantity} onQuantityChange={handleQuantityChange}/>
-            <StoreItemShowCartButton userID={userID} storeItemID={id} quantity={quantity} name={name} description={description} price={price} type={type} image={image} />
+            <StoreItemShowCartButton dispensaryID={dispensaryID} userID={userID} storeItemID={id} quantity={quantity} name={name} description={description} price={price} type={type} image={image} />
         </View>
     );
 };

@@ -46,7 +46,7 @@ const createNewBasket = async (userID) => {
             client_user_id: userID
         })
         console.log('\nRESPONSE FROM CREATE NEW BASKET\n',res.data)
-        return res.data
+        return res.data.id
     } catch (error) {
         console.error(error)
         return null

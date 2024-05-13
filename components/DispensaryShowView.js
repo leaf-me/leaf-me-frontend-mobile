@@ -42,7 +42,7 @@ const DispensaryShowView = () => {
             }
         }, [dispensaries, dispensaryShowID]);
 
-    const {name, address, deliveryfee, image} = dispensaries[dispensaryShowID-1]
+    const {name, address, deliveryfee, image,id} = dispensaries[dispensaryShowID-1]
     const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
     console.log(dispensaryItems)
 

@@ -1,10 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import styles from './StoreItemShowCartButtonStyles'
+import { useNavigation } from '@react-navigation/native';
 import { checkIfCurrentUserHasBasket, createNewBasket, populateBasketWithStoreItem } from './Functions';
 
 
 const StoreItemShowCartButton = ({quantity, name, price, storeItemID,userID}) => {
+    const navigation = useNavigation();
 
     const handlePress =  async () => {
 
@@ -23,7 +25,7 @@ const StoreItemShowCartButton = ({quantity, name, price, storeItemID,userID}) =>
             populateBasketWithStoreItem(usersBasketID,userID,null,storeItemID,)
 
         }
-        
+        navigation.navigate('DispensariesShow')
     }
 
     return (
