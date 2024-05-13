@@ -12,7 +12,7 @@ const StoreItem = ({name, description, price, type, image, id }) => {
     console.log('StoreItem:',name)
 
     const handlePress = () => {
-        navigation.navigate('StoreItemShow', { storeItemid: id, name: name, description: description, price: price, type: type, image: image})
+        navigation.navigate('StoreItemShow', { id: id, name: name, description: description, price: price, type: type, image: image})
     }
 
     return (

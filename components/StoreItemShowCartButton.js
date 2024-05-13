@@ -4,15 +4,20 @@ import styles from './StoreItemShowCartButtonStyles'
 import { checkIfCurrentUserHasBasket, createNewBasket, populateBasketWithStoreItem } from './Functions';
 
 
-const StoreItemShowCartButton = ({name, price, id,userID}) => {
+const StoreItemShowCartButton = ({quantity, name, price, storeItemID,userID}) => {
 
     const handlePress =  async () => {
 
         // check if user has basket
         const usersBasketID = await checkIfCurrentUserHasBasket(userID)
-        console.log('storeItemShow handlePress - return for checkIfCurrentUserHasBasket:',returnRes)
+        console.log('storeItemShow handlePress - return for checkIfCurrentUserHasBasket:',usersBasketID)
+        console.log('storeItemID:',storeItemID)
+        
+        // if user has basket, populate store-item to basket, otherwise, create new basket then populate basket
+        if(usersBasketID){
+            populateBasketWithStoreItem(usersBasketID, userID,null,storeItemID, quantity)
 
-        if(true){
+        } else {
 
         }
         

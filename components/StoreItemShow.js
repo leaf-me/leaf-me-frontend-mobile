@@ -60,7 +60,7 @@ const StoreItemShow = () => {
     const { userID, axios } = useContextProvider()
     const screenWidth = Dimensions.get('window').width;
     const [quantity, setQuantity] = useState(1)
-    console.log('storeItemShow:','name',name,'description',description,'price',price,'type',type,'image',image)
+    console.log('storeItemShow:','name',name,'description',description,'price',price,'type',type,'image',image,'storeItemID',id)
 
     const findImageThenRenderBasedOnType = (type) => {
         // switch case based on the image
@@ -90,7 +90,7 @@ const StoreItemShow = () => {
             />
             <Text style={styles.title}>{name}</Text>
             <StoreItemQuantity quantity={quantity} onQuantityChange={handleQuantityChange}/>
-            <StoreItemShowCartButton userID={userID} storeItemId={id} quantity={quantity} name={name} description={description} price={price} type={type} image={image} />
+            <StoreItemShowCartButton userID={userID} storeItemID={id} quantity={quantity} name={name} description={description} price={price} type={type} image={image} />
         </View>
     );
 };

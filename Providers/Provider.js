@@ -31,6 +31,6 @@ const Provider = ({ children }) => {
   );
 };
 
-export { Provider, API }
+export { Provider, API, axios }
 
 export default Provider;
