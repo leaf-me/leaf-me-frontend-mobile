@@ -42,8 +42,11 @@ const createNewBasket = async (userID) => {
 
     // make call to api
     try {
-        const res = axios.post(`${API}/users/${userID}/basket`)
-        return res.data.id
+        const res = await axios.post(`${API}/users/${userID}/basket`, {
+            client_user_id: userID
+        })
+        console.log('\nRESPONSE FROM CREATE NEW BASKET\n',res.data)
+        return res.data
     } catch (error) {
         console.error(error)
         return null

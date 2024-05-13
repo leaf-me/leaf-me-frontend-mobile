@@ -9,7 +9,7 @@ const StoreItemShowCartButton = ({quantity, name, price, storeItemID,userID}) =>
     const handlePress =  async () => {
 
         // check if user has basket
-        const usersBasketID = await checkIfCurrentUserHasBasket(userID)
+        let usersBasketID = await checkIfCurrentUserHasBasket(userID)
         console.log('storeItemShow handlePress - return for checkIfCurrentUserHasBasket:',usersBasketID)
         console.log('storeItemID:',storeItemID)
         
@@ -18,6 +18,9 @@ const StoreItemShowCartButton = ({quantity, name, price, storeItemID,userID}) =>
             populateBasketWithStoreItem(usersBasketID, userID,null,storeItemID, quantity)
 
         } else {
+            // create new basket then populate the basket
+            usersBasketID = await createNewBasket(userID)
+            populateBasketWithStoreItem(usersBasketID,userID,null,storeItemID,)
 
         }
         
