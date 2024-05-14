@@ -9,23 +9,31 @@ const StoreItemShowCartButton = ({quantity, name, price, storeItemID,userID}) =>
     const navigation = useNavigation();
 
     const handlePress =  async () => {
-
+        
         // check if user has basket
         let usersBasketID = await checkIfCurrentUserHasBasket(userID)
         console.log('storeItemShow handlePress - return for checkIfCurrentUserHasBasket:',usersBasketID)
         console.log('storeItemID:',storeItemID)
+
         
         // if user has basket, populate store-item to basket, otherwise, create new basket then populate basket
         if(usersBasketID){
-            populateBasketWithStoreItem(usersBasketID, userID,null,storeItemID, quantity)
-
+            
+            await populateBasketWithStoreItem(usersBasketID, userID,null,storeItemID, quantity)
         } else {
+            
             // create new basket then populate the basket
             usersBasketID = await createNewBasket(userID)
-            populateBasketWithStoreItem(usersBasketID,userID,null,storeItemID,)
-
+            await populateBasketWithStoreItem(usersBasketID,userID,null,storeItemID,)
+            
         }
-        navigation.navigate('DispensariesShow')
+        // debugger
+        // try {
+        // } catch (error) {
+        //     debugger
+        //     console.error(error)
+        // }
+        navigation.push('DispensariesShow')
     }
 
     return (

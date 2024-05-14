@@ -11,25 +11,12 @@ const checkIfCurrentUserHasBasket = async (userID) => {
     // https://leaf-me-0183706079ed.herokuapp.com/users/{UserIDHERE}}/basket/
     try {
         const res = await axios.get(`${API}/users/${userID}/basket`)
-        console.log('\n called API endpoint:',API,'/users/',userID,'basket` \n RESPONSE: \n',res.data[0])
         const basketID = res.data[0].id
         return basketID
     } catch (error) {
         console.error(error)
         return null
     }
-    
-
-    // axios.get(`${API}/users/${userID}/basket`)
-    // .then((res)=>{
-    //     console.log('\n called API endpoint:',API,'/users/',userID,'basket` \n RESPONSE: \n',res.data[0])
-    //     const basketID = res.data[0].id
-    //     return basketID
-    // })
-    // .catch((error) => {
-    //     console.error(error)
-    //     return null
-    // })
 }
 
 /**
@@ -39,28 +26,16 @@ const checkIfCurrentUserHasBasket = async (userID) => {
 
  */
 const createNewBasket = async (userID) => {
-
     // make call to api
     try {
         const res = await axios.post(`${API}/users/${userID}/basket`, {
             client_user_id: userID
         })
-        console.log('\nRESPONSE FROM CREATE NEW BASKET\n',res.data)
         return res.data.id
     } catch (error) {
         console.error(error)
         return null
     }
-
-    // axios.post(`${API}/users/${userID}/basket`)
-    // .then((res)=> {
-    //     return res.id
-    // })
-    // .catch((error) => {
-    //     console.error(error)
-    //     return null
-    // })
-
 }
 
 /**
@@ -73,38 +48,17 @@ const createNewBasket = async (userID) => {
  * @returns {Boolean} True if the store item is successfully added to the basket, otherwise false
  */
 const populateBasketWithStoreItem =  async (basketID,userID,dispensaryID,storeItemID,quantity) => {
-    
-    // make call to api
-    console.log('\n Popualting the basket with ID:',basketID,'\n called API endpoint:',API,'/users/',userID,'basket/',basketID,'storeitems')
-    console.log(`data to be posted:\n Quantity: ${quantity}\n BasketID: ${basketID}\n StoreItemID: ${storeItemID} `)
-
     try {
         const res = await axios.post(`${API}/users/${userID}/basket/${basketID}/storeItems`, {
             quantity: quantity,
             basket_id: basketID,
             store_item_id: storeItemID
         })
-        console.log('Response from populateBasketWithStoreItem:',res.data)
         return true;
     } catch (error) {
         console.error(error);
         return false
     }
-
-    /*
-    axios.post(`${API}/users/${userID}/basket/${basketID}/storeItems`, {
-        quantity: quantity,
-        basket_id: basketID,
-        store_item_id: storeItemID
-    })
-    .then((res) => {
-        return true
-    })
-    .catch((error) => {
-        console.error(error)
-        return null
-    })
-    */
 }
 
 export { 

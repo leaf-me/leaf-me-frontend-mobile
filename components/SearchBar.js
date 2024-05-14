@@ -3,25 +3,23 @@ import { View, Dimensions, TextInput, Image } from "react-native";
 import { useContextProvider } from "../Providers/Provider";
 import searchIcon from '../assets/search-icon.png'
 import SearchToggle from "./SearchToggle";
-import { useState } from "react";
 import { useSearchToggle } from '../Providers/SearchToggleProvider';
 const screenWidth = Dimensions.get('window').width;
 
 const SearchBar = () => {
     const { API, axios } = useContextProvider();
-    const { searchText, setSearchText, searchResults, setSearchResults, setSearchLoading, searchLoading } = useSearchToggle()
+    const { searchText, setSearchText, setSearchResults, setSearchLoading } = useSearchToggle()
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             if (searchText) {
                 searchAPI();
             }
-        }, 1000); // Adjust the delay as needed
+        }, 1000);
 
         if(!searchText){
             setSearchResults(null)
         }
-
         return () => clearTimeout(delayDebounceFn);
     }, [searchText]);
 
@@ -36,13 +34,9 @@ const SearchBar = () => {
             setSearchLoading(false);
         }
     };
-
-    console.log(searchResults)
     
     const handleChange = (text) => {
         setSearchText(text)
-        console.log(searchText)
-          // do the api call
     }
 
     return (

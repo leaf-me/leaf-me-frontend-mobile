@@ -7,15 +7,12 @@ import disp2Img from '../assets/dis2.png'
 import disp3Img from '../assets/dis3.png'
 import StoreItem from './StoreItem.js';
 
-
-
 const DispensaryShowView = () => {
     const { API, axios } = useContextProvider();
     const { dispensaryShowID, dispensaries } = useDisProvider()
     const [dispensaryItems, setDispensaryItems] = useState(null)
     const screenWidth = Dimensions.get('window').width;
-    // console.log('dispensaries:',dispensaries)
-    // Helper Functions ; should be in its own file during code clean up
+
     const findImageThenRender = (imageFileName, disp1Img, disp2Img, disp3Img) => {
         if(imageFileName === 'image1.jpg'){
             return disp1Img
@@ -27,10 +24,7 @@ const DispensaryShowView = () => {
     }
 
     useEffect(() => {
-        console.log(dispensaryShowID)
         if (dispensaries && dispensaryShowID !== null && dispensaries[dispensaryShowID]) {
-
-            // retrieve all store items from related dispensary
             axios
                 .get(`${API}/dispensary/${dispensaryShowID}/storeitems`)
                 .then(({data}) => {
@@ -49,12 +43,7 @@ const DispensaryShowView = () => {
     const renderItem = ({item}) => (
         <StoreItem dispensaryID={item.dispensary_id} image={item.image} type={item.type} id={item.id} name={item.name} price={item.price} description={item.description}/>
     )
-
-    // make the button clickable
-    // onclick navigate to the correct show page
-    // create the component
-
-
+    
     return (
         <View>
             <Text style={{

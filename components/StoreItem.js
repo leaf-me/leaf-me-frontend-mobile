@@ -12,7 +12,8 @@ const StoreItem = ({name, description, price, type, image, id, dispensaryID }) =
     console.log('StoreItem:',name)
 
     const handlePress = () => {
-        navigation.navigate('StoreItemShow', { dispensaryID: dispensaryID, id: id, name: name, description: description, price: price, type: type, image: image})
+        // debugger
+        navigation.push('StoreItemShow', { dispensaryID: dispensaryID, id: id, name: name, description: description, price: price, type: type, image: image})
     }
 
     return (

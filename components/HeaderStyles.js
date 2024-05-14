@@ -17,14 +17,14 @@ const styles = StyleSheet.create({
     row1: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'white', // temp for visual aid
+        backgroundColor: 'white', 
         height: 80,
     },
     row2: {
         marginTop: -15,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'white', // temp for visual aid
+        backgroundColor: 'white',
         height: 60,
     }
 
