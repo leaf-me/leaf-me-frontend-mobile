@@ -7,6 +7,7 @@ import Home from './views/Home'
 import Dispensaries from './views/Dispensaries'
 import DispensariesShow from './views/DispensariesShow';
 import StoreItemShowView from './views/StoreItemShowView';
+import Basket from './views/Basket';
 // provider imports
 import Provider from './Providers/Provider';
 import { SearchToggleProvider } from './Providers/SearchToggleProvider';
@@ -22,11 +23,12 @@ export default function App() {
       <Provider>
         <SearchToggleProvider>
           <DispensariesProvider>
-            <Stack.Navigator initialRouteName="Home">
+            <Stack.Navigator initialRouteName="Basket">
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Dispensaries" component={Dispensaries} options={{ headerShown: false }}/>
               <Stack.Screen name="DispensariesShow" component={DispensariesShow} options={{ headerShown: false }}/>
               <Stack.Screen name="StoreItemShow" component={StoreItemShowView} options={{ headerShown: false }}/>
+              <Stack.Screen name="Basket" component={Basket} options={{headerShown: false}}/>
           </Stack.Navigator>
           </DispensariesProvider>
         </SearchToggleProvider>
