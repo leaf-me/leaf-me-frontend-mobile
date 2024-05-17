@@ -4,6 +4,7 @@ import styles from './BasketIndexStyles'
 import { useUserContext } from '../Providers/UserProvider.js';
 import BasketItem from './BasketItem.js';
 import BasketIndexSubheader from './BasketIndexSubheader.js';
+import Separator from './Separator.js';
 
 const BasketIndex = () => {
     const { basketItems } = useUserContext()
@@ -19,6 +20,7 @@ const BasketIndex = () => {
             {/*items + subtotal component */}
             <BasketIndexSubheader/>
             {/*seperator component */}
+            <Separator/>
             {
                 basketItems ? (
                     <FlatList

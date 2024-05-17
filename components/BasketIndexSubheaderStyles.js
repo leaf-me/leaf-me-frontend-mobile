@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
         textAlign: 'left',
     },
     rightText: {
-        flex: 0.5,
-        textAlign: 'Right',
+        flex: 1,
+        textAlign: 'right',
     }
 })
 
