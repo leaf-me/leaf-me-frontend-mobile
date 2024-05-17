@@ -1,5 +1,21 @@
 import { API } from '../Providers/Provider'
 import axios from 'axios'
+
+/**
+ * retrieves all the storeItems. used to retrieve storeItems names for BasketItems and OrderItems tables.
+ * @returns {Promise<Array><Object>}
+ */
+const getAllStoreItems = async () => {
+    try {
+        res = await axios.get(`${API}/allstoreitems`)
+        const allStoreItems = res.data
+        return allStoreItems
+    } catch (error){
+        console.error(error)
+        return null
+    }
+}
+
 /**
  * checks if the inputed user has a basket currently
  * @param {Number} userID - the id of the user to check for basket
@@ -92,5 +108,6 @@ export {
     checkIfCurrentUserHasBasket,
     createNewBasket,
     populateBasketWithStoreItem,
-    getAllBasketStoreItemsFromBasketID
+    getAllBasketStoreItemsFromBasketID,
+    getAllStoreItems
 }

@@ -9,9 +9,8 @@ const Dispensaries = () => {
   return (
     <>
       <Header/>
-          <DispensariesIndex/>
-        <NavBar/>
-      
+      <DispensariesIndex/>
+      <NavBar/>
     </>
   )
   

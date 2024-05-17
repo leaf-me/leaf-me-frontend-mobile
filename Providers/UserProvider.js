@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContextProvider } from './Provider';
 import { useContext, createContext, useState, useEffect } from "react"
-import { checkIfCurrentUserHasBasket, createNewBasket, populateBasketWithStoreItem, getAllBasketStoreItemsFromBasketID } from '../components/Functions.js';
+import { checkIfCurrentUserHasBasket, createNewBasket, populateBasketWithStoreItem, getAllBasketStoreItemsFromBasketID, getAllStoreItems } from '../components/Functions.js';
 
 
 export const UserContext = createContext()
@@ -38,8 +38,26 @@ const UserProvider = ({children}) => {
 
         const fetchBasketItems = async (basketID, userID) => {
                 try {
-                    const items = await getAllBasketStoreItemsFromBasketID(basketID, userID)
-                    setBasketItems(items)
+                    const basketItems = await getAllBasketStoreItemsFromBasketID(basketID, userID)
+                    const storeItems = await getAllStoreItems()
+                    // console.log(storeItems)
+                    // need to get the names of the basketItems...
+                    // one call to all storeItems; forEach basketItem, compare basketItem.storeItemID to storeItem.id;
+                    /// when there is a match; append storeItem.name onto basketItem
+                    const storeItemsMap = {};
+                    storeItems.forEach(storeItem => {
+                        storeItemsMap[storeItem.id] = storeItem
+                    })
+                    const itemsWithNames = basketItems.map(item => {
+                        const storeItem = storeItemsMap[item.store_item_id]
+                        if (storeItem) {
+                            item.name = storeItem.name
+                        } else {
+                            item.name = 'Unknown Item'
+                        }
+                        return item
+                    })
+                    setBasketItems(itemsWithNames)
                     return true
                 } catch (error) {
                     setError(err.message);
