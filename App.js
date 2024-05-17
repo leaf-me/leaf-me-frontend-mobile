@@ -12,6 +12,7 @@ import Basket from './views/Basket';
 import Provider from './Providers/Provider';
 import { SearchToggleProvider } from './Providers/SearchToggleProvider';
 import DispensariesProvider, { useDisProvider } from './Providers/DispensariesProvider';
+import UserProvider from './Providers/UserProvider';
 
 
 const Stack = createNativeStackNavigator()
@@ -21,6 +22,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Provider>
+        <UserProvider>
         <SearchToggleProvider>
           <DispensariesProvider>
             <Stack.Navigator initialRouteName="Basket">
@@ -32,6 +34,7 @@ export default function App() {
           </Stack.Navigator>
           </DispensariesProvider>
         </SearchToggleProvider>
+        </UserProvider>
       </Provider>
     </NavigationContainer>
 

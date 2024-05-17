@@ -4,10 +4,6 @@ import DispensariesProvider from '../Providers/DispensariesProvider';
 import Header from '../components/Header';
 import NavBar from '../components/NavBar';
 
-
-
-
-
 const Dispensaries = () => {
 
   return (

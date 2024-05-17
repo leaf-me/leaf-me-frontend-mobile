@@ -39,6 +39,33 @@ const createNewBasket = async (userID) => {
 }
 
 /**
+ * retrives all the basketStoreItems from the input basket
+ * @param {Number} basketID - the id of the basket to retrive basketStoreItems from
+ * @returns {Promise<Array><Object>>} - a promise that resolves to an array of store item objects.
+ */
+const getAllBasketStoreItemsFromBasketID = async (basketID,userID) => {
+    // check that input is provided
+    if(!basketID){
+        throw new Error('Basket ID is required!')
+    }
+    let basketIDNumber = Number(basketID)
+    // if the input is NaN
+    if(isNaN(basketIDNumber)){
+        throw new Error('Basket ID must be a number!')
+
+    }
+    // try to make the api call
+    try {
+        const res = await axios.get(`${API}/users/${userID}/basket/${basketIDNumber}/storeitems`)
+        return res.data
+    } catch (error) {
+        console.error('Error fetching basket store items: ', error)
+        throw error
+    }
+
+}
+
+/**
  * populates a user's basket with a store item
  * @param {Number} basketID - The ID of the basket to populate
  * @param {Number} userID - The ID of the user owning the basket
@@ -64,5 +91,6 @@ const populateBasketWithStoreItem =  async (basketID,userID,dispensaryID,storeIt
 export { 
     checkIfCurrentUserHasBasket,
     createNewBasket,
-    populateBasketWithStoreItem
+    populateBasketWithStoreItem,
+    getAllBasketStoreItemsFromBasketID
 }
