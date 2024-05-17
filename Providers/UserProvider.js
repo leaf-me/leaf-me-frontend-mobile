@@ -11,6 +11,8 @@ export function useUserContext() {
 
 const UserProvider = ({children}) => {
     const { API, axios, userID } = useContextProvider()
+    const [totalItems, setTotalItems] = useState(0)
+    const [subtotal, setSubtotal] = useState(0)
     const [basketItems, setBasketItems] = useState([])
     const [basketID, setBasketID] = useState(null)
     const [currentUserHasBasket, setCurrentUserHasBasket] = useState(false)
@@ -48,16 +50,47 @@ const UserProvider = ({children}) => {
                     storeItems.forEach(storeItem => {
                         storeItemsMap[storeItem.id] = storeItem
                     })
-                    const itemsWithNames = basketItems.map(item => {
+                    const itemsWithNamesAndPrices = basketItems.map(item => {
                         const storeItem = storeItemsMap[item.store_item_id]
                         if (storeItem) {
                             item.name = storeItem.name
+                            item.price = storeItem.price
                         } else {
                             item.name = 'Unknown Item'
+                            item.price = NaN
                         }
                         return item
                     })
-                    setBasketItems(itemsWithNames)
+                    // retrieving total items + subtotal
+                    let tempSubtotal = 0
+                    let tempTotalItems = 0
+                    itemsWithNamesAndPrices.forEach((item) => {
+                        // console.log(item.price, item.quantity)
+                        tempSubtotal += Number(item.price) * Number(item.quantity)
+                        tempTotalItems += 1
+                    })
+
+                    // const itemsWithPrice = basketItems.map(item => {
+                    //     const storeItem = storeItemsMap[item.price]
+                    //     if(storeItem) {
+                    //         item.price = storeItem.price
+                    //     } else {
+                    //         item.price = NaN
+                    //     }
+                    //     return item
+                    // })
+                    // console.log(tempSubtotal,tempTotalItems)
+
+                    // format the currency
+                    const formatCurrency = (amount) => {
+                        return `$${amount.toFixed(2)}`
+                    }
+
+                    tempSubtotal = formatCurrency
+
+                    setTotalItems(tempTotalItems)
+                    setSubtotal(tempSubtotal)
+                    setBasketItems(tempTotalItems)
                     return true
                 } catch (error) {
                     setError(err.message);
@@ -70,7 +103,6 @@ const UserProvider = ({children}) => {
                 await fetchBasketItems(fetchedBasketID, userID)
             }
         }
-
         initBasket(userID)
     },[userID])
 
@@ -78,7 +110,7 @@ const UserProvider = ({children}) => {
     return (
         <UserContext.Provider
         value={{
-            basketItems, basketID, currentUserHasBasket, error
+            basketItems, basketID, currentUserHasBasket, error, subtotal, totalItems
         }}>
             {children}
         </UserContext.Provider>

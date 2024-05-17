@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-const BasketItem = () => {
+const BasketItem = ({basketId, id, quantity, storeItemID, name}) => {
     return (
         <View>
             
