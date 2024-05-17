@@ -7,13 +7,13 @@ import BasketIndexSubheader from './BasketIndexSubheader.js';
 import Separator from './Separator.js';
 
 const BasketIndex = () => {
-    const { basketItems } = useUserContext()
+    const { basketItems, subtotal, totalItems } = useUserContext()
 
     const renderItem = ({item}) => (
-        <BasketItem basketId={item.basket_id} id={item.id} quantity={item.quantity} storeItemID={item.store_item_id} name={item.name} />
+        <BasketItem price={item.price} basketId={item.basket_id} id={item.id} quantity={item.quantity} storeItemID={item.store_item_id} name={item.name} />
     )
 
-    // console.log(basketItems)
+    console.log('\n log on basketIndex \n',basketItems)
 
     return (
         <View style={styles.container}>

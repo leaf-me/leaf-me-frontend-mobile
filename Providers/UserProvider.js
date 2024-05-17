@@ -65,7 +65,7 @@ const UserProvider = ({children}) => {
                     let tempSubtotal = 0
                     let tempTotalItems = 0
                     itemsWithNamesAndPrices.forEach((item) => {
-                        // console.log(item.price, item.quantity)
+                        console.log(item.price, item.quantity)
                         tempSubtotal += Number(item.price) * Number(item.quantity)
                         tempTotalItems += 1
                     })
@@ -82,15 +82,16 @@ const UserProvider = ({children}) => {
                     // console.log(tempSubtotal,tempTotalItems)
 
                     // format the currency
-                    const formatCurrency = (amount) => {
+                    const formatCurrency = async (amount) => {
                         return `$${amount.toFixed(2)}`
                     }
 
-                    tempSubtotal = formatCurrency
+                    let formattedSubtotal =  await formatCurrency(tempSubtotal)
+                    console.log(formattedSubtotal)
 
                     setTotalItems(tempTotalItems)
-                    setSubtotal(tempSubtotal)
-                    setBasketItems(tempTotalItems)
+                    setSubtotal(formattedSubtotal)
+                    setBasketItems(itemsWithNamesAndPrices)
                     return true
                 } catch (error) {
                     setError(err.message);
