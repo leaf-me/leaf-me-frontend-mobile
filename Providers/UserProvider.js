@@ -19,7 +19,9 @@ const UserProvider = ({children}) => {
     const [error, setError] = useState(null)
 
     const handleQuantityChange2 = (itemId, newQuantity) => {
-        console.log('\nQUANTITY CHANGE:\n',itemId, newQuantity)
+        if(itemId && newQuantity){
+            console.log('\nQUANTITY CHANGE:\n','itemId:',itemId,"newQuantity:", newQuantity)
+        }
         setBasketItems(prevItems =>
             prevItems.map(item =>
                 item.id === itemId ? { ...item, quantity: newQuantity } : item
