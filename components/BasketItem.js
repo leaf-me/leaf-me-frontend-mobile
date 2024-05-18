@@ -17,7 +17,6 @@ const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
     },[quantity])
 
     useEffect(() => {
-        setSubtotalState(price * quantityState)
 
         // take the subtotal string
         // transform into number
@@ -25,25 +24,43 @@ const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
         //     return parseFloat(str.replace('$', ''));
         //   };
         //   const subtotalNumber = convertToNumber(subtotal)
-            const subtotalWithoutSymbol = subtotal.replace('$','')
-            console.log(subtotalWithoutSymbol)
-            const subtotalNumber = parseFloat(subtotalWithoutSymbol)
-            console.log('Num:',subtotalNumber)
-            const newSubtotal = subtotalNumber + subtotalState
-            const newSubtotalStr = `$${newSubtotal.toFixed(2)}`
+
+        // if quantityChange is positive
+            // const subtotalWithoutSymbol = subtotal.replace('$','')
+            // console.log(subtotalWithoutSymbol)
+            // const subtotalNumber = parseFloat(subtotalWithoutSymbol)
+            // console.log('Num:',subtotalNumber)
+            // const newSubtotal = subtotalNumber + Number(price)
+            // const newSubtotalStr = `$${newSubtotal.toFixed(2)}`
         
         // on quantityState change, update the subtotal by adding the change from the current basketitem price to the subtotal
         
         console.log(subtotal, subtotalState)
-        setSubtotal(newSubtotalStr)
+        setSubtotalState(price * quantityState)
+        // setSubtotal(newSubtotalStr)
     },[quantityState])
 
 
     const handleQuantityChange = (newQuantity) => {
         if(newQuantity > quantityState){
+            const subtotalWithoutSymbol = subtotal.replace('$','')
+            console.log(subtotalWithoutSymbol)
+            const subtotalNumber = parseFloat(subtotalWithoutSymbol)
+            console.log('Num:',subtotalNumber)
+            const newSubtotal = subtotalNumber + Number(price)
+            const newSubtotalStr = `$${newSubtotal.toFixed(2)}`
+            setSubtotalState(price * quantityState)
             setTotalItems(totalItems + 1)
+            setSubtotal(newSubtotalStr)
         } else {
+            const subtotalWithoutSymbol = subtotal.replace('$','')
+            const subtotalNumber = parseFloat(subtotalWithoutSymbol)
+            const newSubtotal = subtotalNumber - Number(price)
+            const newSubtotalStr = `$${newSubtotal.toFixed(2)}`
+            setSubtotalState(price * quantityState)
             setTotalItems(totalItems - 1)
+            setSubtotal(newSubtotalStr)
+
         }
         setQuantityState(newQuantity)
     }
