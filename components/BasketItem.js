@@ -40,6 +40,11 @@ const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
 
 
     const handleQuantityChange = (newQuantity) => {
+        if(newQuantity > quantityState){
+            setTotalItems(totalItems + 1)
+        } else {
+            setTotalItems(totalItems - 1)
+        }
         setQuantityState(newQuantity)
     }
 
