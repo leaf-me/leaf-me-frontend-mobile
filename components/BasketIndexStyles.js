@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
-        maxHeight: 520,
+        maxHeight: 360,
+        // old value ^^ 520
     }
 })
 

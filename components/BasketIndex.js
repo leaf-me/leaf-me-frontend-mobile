@@ -9,11 +9,15 @@ import Separator from './Separator.js';
 const BasketIndex = () => {
     const { basketItems, subtotal, totalItems } = useUserContext()
 
-    const renderItem = ({item}) => (
-        <BasketItem price={item.price} basketId={item.basket_id} id={item.id} quantity={item.quantity} storeItemID={item.store_item_id} name={item.name} />
+    const renderItem = ({item, index}) => (
+        <View>
+            <BasketItem price={item.price} basketId={item.basket_id} id={item.id} quantity={item.quantity} storeItemID={item.store_item_id} name={item.name} />
+            {index !== basketItems.length - 1 && <Separator type={'basketItem'} />}
+        </View>
+
     )
 
-    console.log('\n log on basketIndex \n',basketItems)
+    // console.log('\n log on basketIndex \n',basketItems)
 
     return (
         <View style={styles.container}>

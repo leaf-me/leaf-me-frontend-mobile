@@ -38,7 +38,7 @@ const DispensaryShowView = () => {
 
     const {name, address, deliveryfee, image,id} = dispensaries[dispensaryShowID-1]
     const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
-    console.log(dispensaryItems)
+    // console.log(dispensaryItems)
 
     const renderItem = ({item}) => (
         <StoreItem dispensaryID={item.dispensary_id} image={item.image} type={item.type} id={item.id} name={item.name} price={item.price} description={item.description}/>

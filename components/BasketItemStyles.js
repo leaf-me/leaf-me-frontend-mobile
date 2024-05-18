@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 10,
         height: 80,
-        backgroundColor: 'red',
+        // backgroundColor: 'red',
         margin: 10,
     },
     column1: {

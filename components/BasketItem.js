@@ -6,14 +6,16 @@ import { useState, useEffect } from 'react';
 import { useUserContext } from '../Providers/UserProvider.js';
 
 const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
-    const { totalItems, subtotal, setSubtotal, setTotalItems } = useUserContext()
+    const { totalItems, subtotal, setSubtotal, setTotalItems, basketItems, handleQuantityChange2 } = useUserContext()
     const [quantityState, setQuantityState] = useState(1)
     // this subtotal state is to temporaily render the price * quantity
     const [subtotalState, setSubtotalState] = useState(0)
     
     // when the quantity from the req comes in, store it in state so we can temporaily edit it
+    // also updates our basketItems state to reflect for our handleSubmit to be up to date
     useEffect(()=> {
         setQuantityState(quantity)
+        // console.log('\nquantity\n',quantity)
     },[quantity])
 
     useEffect(() => {
@@ -35,8 +37,9 @@ const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
         
         // on quantityState change, update the subtotal by adding the change from the current basketitem price to the subtotal
         
-        console.log(subtotal, subtotalState)
+        // console.log(subtotal, subtotalState)
         setSubtotalState(price * quantityState)
+        handleQuantityChange2()
         // setSubtotal(newSubtotalStr)
     },[quantityState])
 
@@ -44,9 +47,9 @@ const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
     const handleQuantityChange = (newQuantity) => {
         if(newQuantity > quantityState){
             const subtotalWithoutSymbol = subtotal.replace('$','')
-            console.log(subtotalWithoutSymbol)
+            // console.log(subtotalWithoutSymbol)
             const subtotalNumber = parseFloat(subtotalWithoutSymbol)
-            console.log('Num:',subtotalNumber)
+            // console.log('Num:',subtotalNumber)
             const newSubtotal = subtotalNumber + Number(price)
             const newSubtotalStr = `$${newSubtotal.toFixed(2)}`
             setSubtotalState(price * quantityState)
@@ -63,6 +66,8 @@ const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
 
         }
         setQuantityState(newQuantity)
+        handleQuantityChange2(id, newQuantity)
+
     }
 
     return (

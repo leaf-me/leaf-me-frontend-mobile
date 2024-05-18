@@ -3,6 +3,8 @@ import { View } from 'react-native';
 import BasketIndex from '../components/BasketIndex';
 import Header from '../components/Header';
 import NavBar from '../components/NavBar';
+import BasketSubmitCartButton from '../components/BasketSubmitCartButton';
+import BasketAddButton from '../components/BasketAddButton';
 
 
 const Basket = () => {
@@ -29,6 +31,9 @@ const Basket = () => {
             <Header/>
             <BasketIndex/>
             <NavBar/>
+            <BasketSubmitCartButton/>
+            <BasketAddButton/>
+            
         </>
     );
 };

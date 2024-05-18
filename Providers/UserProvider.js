@@ -18,6 +18,16 @@ const UserProvider = ({children}) => {
     const [currentUserHasBasket, setCurrentUserHasBasket] = useState(false)
     const [error, setError] = useState(null)
 
+    const handleQuantityChange2 = (itemId, newQuantity) => {
+        console.log('\nQUANTITY CHANGE:\n',itemId, newQuantity)
+        setBasketItems(prevItems =>
+            prevItems.map(item =>
+                item.id === itemId ? { ...item, quantity: newQuantity } : item
+            )
+        );
+    };
+
+
     // whenever the component is first mounted; we need to check for users basket.
     useEffect(() => {
         console.log(userID)
@@ -98,6 +108,7 @@ const UserProvider = ({children}) => {
                     return false
         }}
 
+   
         const initBasket = async (userID) => {
             const fetchedBasketID = await fetchBasketID(userID);
             if(fetchedBasketID) {
@@ -112,7 +123,7 @@ const UserProvider = ({children}) => {
     return (
         <UserContext.Provider
         value={{
-            basketItems, basketID, currentUserHasBasket, error, subtotal, totalItems, setSubtotal, setTotalItems
+            basketItems, basketID, currentUserHasBasket, error, subtotal, totalItems, setSubtotal, setTotalItems, handleQuantityChange2
         }}>
             {children}
         </UserContext.Provider>

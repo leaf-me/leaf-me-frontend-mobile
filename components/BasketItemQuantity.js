@@ -15,7 +15,7 @@ const BasketItemQuantity = ({quantity, onQuantityChange}) => {
         
     }
 
-    console.log('styles',styles)
+    // console.log('styles',styles)
 
     return (
         <View style={styles.container}>

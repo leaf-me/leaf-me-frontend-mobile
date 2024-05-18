@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     container:{
         maxHeight: 30,
         flexDirection: 'row',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#D6D6D6',
         borderRadius: 20,
         // paddingHorizontal: 10,
         // paddingVertical: 5,
