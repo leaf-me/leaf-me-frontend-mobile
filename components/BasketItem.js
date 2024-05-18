@@ -3,16 +3,39 @@ import { View, Text } from 'react-native';
 import BasketItemQuantity from './BasketItemQuantity';
 import styles from './BasketItemStyles'
 import { useState, useEffect } from 'react';
-const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
-    const [quantityState, setQuantityState] = useState(1)
-    const [subtotalState, setSubtotalState] = useState(0)
+import { useUserContext } from '../Providers/UserProvider.js';
 
+const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
+    const { totalItems, subtotal, setSubtotal, setTotalItems } = useUserContext()
+    const [quantityState, setQuantityState] = useState(1)
+    // this subtotal state is to temporaily render the price * quantity
+    const [subtotalState, setSubtotalState] = useState(0)
+    
+    // when the quantity from the req comes in, store it in state so we can temporaily edit it
     useEffect(()=> {
         setQuantityState(quantity)
     },[quantity])
 
     useEffect(() => {
         setSubtotalState(price * quantityState)
+
+        // take the subtotal string
+        // transform into number
+        // const convertToNumber = (str) => {
+        //     return parseFloat(str.replace('$', ''));
+        //   };
+        //   const subtotalNumber = convertToNumber(subtotal)
+            const subtotalWithoutSymbol = subtotal.replace('$','')
+            console.log(subtotalWithoutSymbol)
+            const subtotalNumber = parseFloat(subtotalWithoutSymbol)
+            console.log('Num:',subtotalNumber)
+            const newSubtotal = subtotalNumber + subtotalState
+            const newSubtotalStr = `$${newSubtotal.toFixed(2)}`
+        
+        // on quantityState change, update the subtotal by adding the change from the current basketitem price to the subtotal
+        
+        console.log(subtotal, subtotalState)
+        setSubtotal(newSubtotalStr)
     },[quantityState])
 
 
