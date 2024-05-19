@@ -252,7 +252,7 @@ const validateOrderKeys = (obj) => {
 
     //if there is missing keys, return a string, otherwise return null
     if(missingKeys) {
-        return `Missing Keys: ${misingKeyd}`
+        return `Missing Keys: ${missingKeys}`
     } else {
         return null
     }
@@ -267,8 +267,7 @@ const validateOrderKeys = (obj) => {
  * @param {Number} order.dispensary_id - the id of the dispensary to which the order belongs to
  * @returns {Promise<Array><Object>>} - returns the object with the posted order object
  */
-const postSingleOrder = (order) => {
-
+const postSingleOrder = async (order) => {
     if(typeof(order) !== 'Object'){
         throw new Error('supplied input is not an object')
     }
@@ -292,12 +291,112 @@ const postSingleOrder = (order) => {
         })
     } catch (error) {
         console.error(error)
+        throw error
+    }
+}
+/**
+ * validate that the input object has all the valid keys required for orderStoreItem post
+ * @param {Object} obj - orderStoreItem object formatted for post
+ * @returns {string|null} - A string indicating missing keys, or null if all keys are present.
+ */
+const validateStoreItemKeys = (obj) => {
+    let missingKeys = ''
+
+    // checking each key
+    switch(true) {
+        case !('total' in obj):
+            missingKeys += 'quantity'
+        case !('status' in obj):
+            missingKeys += 'basket_id'
+        case !('client_user_id' in obj):
+            missingKeys += 'store_item_id'
+    }
+
+    // removing trailing commas
+    missingKeys = missingKeys.replace(/,\s*$/, '');
+
+    //if there is missing keys, return a string, otherwise return null
+    if(missingKeys) {
+        return `Missing Keys: ${missingKeys}`
+    } else {
+        return null
+    }
+    
+}
+/**
+ * Posts a single orderStoreItem to the backend.
+ * @param {Number} orderID - order id of the parent
+ * @param {Number} client_user_id - user ID of the order's owner
+ * @param {Object} storeItem - The storeItem object containing the following keys:
+ * @param {number} storeItem.quantity - The quantity of the store item.
+ * @param {string} storeItem.basket_id - The ID of the basket.
+ * @param {string} storeItem.store_item_id - The ID of the store item.
+ * @returns {Promise<Object>} A Promise that resolves with the response from the backend if the operation is successful.
+ * @throws {Error} If an error occurs during the POST request or if the response indicates an error.
+ */
+const postOrderStoreItem = async (storeItem, orderID, client_user_id) => {
+    if(typeof(storeItem) !== 'object'){
+        throw new Error('supplied input is not an object')
+    }
+    const missingKeys = validateStoreItemKeys(storeItem)
+    if (missingKeys){
+        throw new Error('supplied input is invalid:\n',missingKeys)
+    }
+
+    try {
+        axios.post(`${API}/user/${client_user_id}/order/${orderID}`,storeItem)
+        .then((res)=> {
+            console.log(res.data)
+            return res.data
+        })
+    } catch (error) {
+        console.error(error)
+        throw error
     }
 }
 
 /**
- * post single order
+ * Posts a batch of orders to the backend. To be used in conjunction with the sortBasketItemsByDispensary function.
+ * @param {Array<Object>} batchOfOrders - An array of sorted BasketItems objects from the return of sortBasketItemsByDispensary, to be posted to the orders table.
+ * @param {Array<Object>} batchOfOrders[].items - An array of basketStoreItem objects, to be posted to the orderStoreItem table.
+ * @param {number} batchOfOrders[].dispensary_id - ID of the related dispensary, to be posted to the orders table.
+ * @param {string} batchOfOrders[].total - Value for the cost of the entire order, to be posted to the orders table.
+ * @param {string} batchOfOrders[].status - Status of the order, to be posted to the orders table.
+ * @param {number} batchOfOrders[].client_user_id - ID of the related client user, to be posted to the orders table.
+ * @returns {Promise<Object>} A Promise that resolves to an object containing all the orders' IDs posted and all the IDs of all orderStoreItems posted.
+ * @throws {Error} If an error occurs during any of the POST requests or if any response indicates an error.
  */
+const patchBatchOrder = async (batchOfOrders, userID) => {
+    const result = {
+        orderIds: [],
+        orderStoreItemIds: []
+    }
+
+    for(const order of batchOfOrders){
+        try {
+            // post each order to orders table
+            const orderResponse = await postSingleOrder(order)
+            
+            let orderId = orderResponse.data.id
+            result.orderIds.push(orderId)
+            
+            // post each item to the orderStoreItem table
+            for(const item of order.items) {
+                const itemResponse = await postOrderStoreItem(item, orderId, userID)
+                result.orderStoreItemIds.push(itemResponse.data.id)
+            }
+            result.orderStoreItemIds.push('end')
+        } catch (error){
+            console.error(error)
+            throw error;
+        }
+    }
+
+    return result
+
+}
+
+
 
 
 
