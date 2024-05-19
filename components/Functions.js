@@ -153,7 +153,7 @@ const populateBasketWithStoreItem =  async (basketID,userID,dispensaryID,storeIt
  * //   }
  * // ]
  */
-function sortBasketItemsByDispensary(basketItems,order,
+const sortBasketItemsByDispensary = (basketItems,order,
     storeItems=[
        {
            "id": 1,
@@ -182,7 +182,7 @@ function sortBasketItemsByDispensary(basketItems,order,
            "price": "6.99",
            "dispensary_id": 2
        }
-   ]){
+   ]) => {
    const batchOfOrders = []
    let count = 0
 
@@ -227,7 +227,84 @@ function sortBasketItemsByDispensary(basketItems,order,
    }
    return batchOfOrders
 }
+/**
+ * validate that the input object has all the valid keys required for orders post
+ * @param {Object} obj - order object formatted for post
+ * @returns {string|null} - A string indicating missing keys, or null if all keys are present.
+ */
+const validateOrderKeys = (obj) => {
+    let missingKeys = ''
 
+    // checking each key
+    switch(true) {
+        case !('total' in obj):
+            missingKeys += 'total'
+        case !('status' in obj):
+            missingKeys += 'status'
+        case !('client_user_id' in obj):
+            missingKeys += 'client_user_id'
+        case !('dispensary_id' in obj):
+            missingKeys += 'dispensary_id'
+    }
+
+    // removing trailing commas
+    missingKeys = missingKeys.replace(/,\s*$/, '');
+
+    //if there is missing keys, return a string, otherwise return null
+    if(missingKeys) {
+        return `Missing Keys: ${misingKeyd}`
+    } else {
+        return null
+    }
+    
+}
+
+/**
+ * post single order to backend. takes in a sortedBasketItem Object (sortedBaskedItems[n]) this should be chained along with the return from the sortBasketItemsByDispensary call
+ * @param {String} order.total - The cash value of the order
+ * @param {String} order.status - indicates the orders status for use on the courier and resturant Frontend
+ * @param {Number} order.client_user_id - the id of the user that the order belongs to
+ * @param {Number} order.dispensary_id - the id of the dispensary to which the order belongs to
+ * @returns {Promise<Array><Object>>} - returns the object with the posted order object
+ */
+const postSingleOrder = (order) => {
+
+    if(typeof(order) !== 'Object'){
+        throw new Error('supplied input is not an object')
+    }
+
+    const missingKeys = validateOrderKeys(order)
+    if (missingKeys){
+        throw new Error('supplied input is invalid:\n',missingKeys)
+    }
+
+    const orderObj = {
+        total: order.total,
+        status: order.status,
+        client_user_id: order.client_user_id,
+        dispensary_id: order.dispensary_id
+    }
+    try {
+        axios.post(`${API}/user/${client_user_id}/order`,orderObj)
+        .then((res)=> {
+            console.log(res.data)
+            return res.data
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+/**
+ * post single order
+ */
+
+
+
+// create post single order function
+// create post single order storeItem function
+
+// create post batch order function
 
 
 // send order function
