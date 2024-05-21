@@ -403,7 +403,7 @@ const postBatchOrder = async (batchOfOrders, userID) => {
             throw error;
         }
     }
-
+    console.log(result)
     return result
 
 }
