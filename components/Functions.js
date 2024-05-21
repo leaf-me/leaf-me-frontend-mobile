@@ -225,6 +225,9 @@ const sortBasketItemsByDispensary = (basketItems,order,
            orderEl.total += parseFloat(storeItem.price) * basketItem.quantity
        }
    }
+   if(batchOfOrders.length == 1){
+    return batchOfOrders[0]
+   }
    return batchOfOrders
 }
 /**
@@ -268,7 +271,8 @@ const validateOrderKeys = (obj) => {
  * @returns {Promise<Array><Object>>} - returns the object with the posted order object
  */
 const postSingleOrder = async (order) => {
-    if(typeof(order) !== 'Object'){
+    console.log('ssingleOrder',order)
+    if(typeof(order) !== 'object'){
         throw new Error('supplied input is not an object')
     }
 
@@ -277,18 +281,20 @@ const postSingleOrder = async (order) => {
         throw new Error('supplied input is invalid:\n',missingKeys)
     }
 
+    console.log(' preObject builder')
+
     const orderObj = {
         total: order.total,
         status: order.status,
         client_user_id: order.client_user_id,
         dispensary_id: order.dispensary_id
     }
+    console.log(orderObj)
     try {
-        axios.post(`${API}/user/${client_user_id}/order`,orderObj)
-        .then((res)=> {
-            console.log(res.data)
-            return res.data
-        })
+        console.log('preSend',`${API}/user/${order.client_user_id}/order`)
+        const res = await axios.post(`${API}/users/${order.client_user_id}/order`,orderObj)
+        console.log('response!!!',res.data.id)
+        return res.data
     } catch (error) {
         console.error(error)
         throw error
@@ -335,20 +341,21 @@ const validateStoreItemKeys = (obj) => {
  * @throws {Error} If an error occurs during the POST request or if the response indicates an error.
  */
 const postOrderStoreItem = async (storeItem, orderID, client_user_id) => {
+    console.log('stophere',storeItem, orderID, client_user_id)
     if(typeof(storeItem) !== 'object'){
         throw new Error('supplied input is not an object')
     }
-    const missingKeys = validateStoreItemKeys(storeItem)
-    if (missingKeys){
-        throw new Error('supplied input is invalid:\n',missingKeys)
-    }
-
+    // const missingKeys = validateStoreItemKeys(storeItem)
+    // if (missingKeys){
+    //     throw new Error('supplied input is invalid:\n',missingKeys)
+    // 
+    console.log(orderID)
     try {
-        axios.post(`${API}/user/${client_user_id}/order/${orderID}`,storeItem)
-        .then((res)=> {
-            console.log(res.data)
+        console.log('clientID',client_user_id,'orderID',orderID)
+        storeItem.client_order_id = orderID
+        const res = await axios.post(`${API}/users/${client_user_id}/order/${orderID}/storeitems`,storeItem)
+            console.log('postOrderItem()',res.data)
             return res.data
-        })
     } catch (error) {
         console.error(error)
         throw error
@@ -366,24 +373,29 @@ const postOrderStoreItem = async (storeItem, orderID, client_user_id) => {
  * @returns {Promise<Object>} A Promise that resolves to an object containing all the orders' IDs posted and all the IDs of all orderStoreItems posted.
  * @throws {Error} If an error occurs during any of the POST requests or if any response indicates an error.
  */
-const patchBatchOrder = async (batchOfOrders, userID) => {
+const postBatchOrder = async (batchOfOrders, userID) => {
     const result = {
         orderIds: [],
         orderStoreItemIds: []
     }
 
+    let _orderID = null
+
     for(const order of batchOfOrders){
         try {
             // post each order to orders table
             const orderResponse = await postSingleOrder(order)
-            
-            let orderId = orderResponse.data.id
-            result.orderIds.push(orderId)
-            
+            console.log('orderRes',orderResponse)
+            _orderID = orderResponse.id
+            result.orderIds.push(_orderID)
+
             // post each item to the orderStoreItem table
             for(const item of order.items) {
-                const itemResponse = await postOrderStoreItem(item, orderId, userID)
-                result.orderStoreItemIds.push(itemResponse.data.id)
+
+                console.log ('is orderID good precall?',_orderID)
+                const itemResponse = await postOrderStoreItem(item, _orderID, userID)
+                console.log('itemResponse',itemResponse, _orderID, userID)
+                result.orderStoreItemIds.push(itemResponse.id)
             }
             result.orderStoreItemIds.push('end')
         } catch (error){
@@ -416,5 +428,9 @@ export {
     populateBasketWithStoreItem,
     getAllBasketStoreItemsFromBasketID,
     getAllStoreItems,
-    sortBasketItemsByDispensary
+    sortBasketItemsByDispensary,
+    postBatchOrder,
+    postSingleOrder,
+    postOrderStoreItem
+
 }
