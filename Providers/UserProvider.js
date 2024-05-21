@@ -125,7 +125,7 @@ const UserProvider = ({children}) => {
     return (
         <UserContext.Provider
         value={{
-            basketItems, basketID, currentUserHasBasket, error, subtotal, totalItems, setSubtotal, setTotalItems, handleQuantityChange2
+            basketItems, basketID, currentUserHasBasket, error, subtotal, totalItems, setTotalItems, handleQuantityChange2, setBasketItems, setBasketID, setCurrentUserHasBasket, setSubtotal
         }}>
             {children}
         </UserContext.Provider>

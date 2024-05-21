@@ -17,18 +17,40 @@ const getAllStoreItems = async () => {
 }
 
 /**
- * checks if the inputed user has a basket currently
- * @param {Number} userID - the id of the user to check for basket
- * @returns {Number|null} Returns the basket id if the user has one, or null if there's no basket for the user
+ * Checks if the specified user has a basket.
+ *
+ * @param {Number} userID - The ID of the user to check for a basket.
+ * @param {Boolean|null} all - Optional parameter. When set to true, returns all basket IDs. Use for testing or if a user has multiple baskets.
+ * @param {Boolean|null} obj - Optional parameter. When set to true, returns basket objects instead of IDs.
+ * @returns {Number|null|Array<Number>|Array<Object>} Returns the basket ID if the user has one, null if there's no basket for the user, an array of basket IDs if 'all' parameter is true, or an array of basket objects if 'obj' parameter is true.
  */
-
-const checkIfCurrentUserHasBasket = async (userID) => {
+const checkIfCurrentUserHasBasket = async (userID,all=null,obj=null) => {
     // make call to api
     // https://leaf-me-0183706079ed.herokuapp.com/users/{UserIDHERE}}/basket/
     try {
         const res = await axios.get(`${API}/users/${userID}/basket`)
-        const basketID = res.data[0].id
-        return basketID
+        if(all){
+            let baskets = res.data
+            console.log(baskets)
+            if(obj){
+                return baskets
+            } else {
+                const basketIDs = baskets.map(basket => {
+                    return basket.id
+                });
+                return basketIDs
+            }
+        } else {
+            // if obj param is present, return the whole arr
+            if(obj){
+                let baskets = res.data
+                return baskets
+            } else {
+                const basketID = res.data[0].id
+                return basketID
+
+            }
+        }
     } catch (error) {
         console.error(error)
         return null
@@ -57,6 +79,7 @@ const createNewBasket = async (userID) => {
 /**
  * retrives all the basketStoreItems from the input basket
  * @param {Number} basketID - the id of the basket to retrive basketStoreItems from
+ * @param {Number} userID - the id of the baskets parent user
  * @returns {Promise<Array><Object>>} - a promise that resolves to an array of store item objects.
  */
 const getAllBasketStoreItemsFromBasketID = async (basketID,userID) => {
@@ -408,6 +431,71 @@ const postBatchOrder = async (batchOfOrders, userID) => {
 
 }
 
+/**
+ * takes in a single basketStoreItem ID and then deletes from the db
+ * @param {Number} basketStoreItemID - ID of the basketStoreItem to be deleted
+ * @param {Number} userID - ID of the owner of the basketStoreItem
+ * @param {Number} basketID - ID of the parent of basketStoreItem
+ * @returns {True|null} - if the delete was succesful, return true, otherwise return null
+ */
+const deleteOneBasketStoreItem = async (basketStoreItemID, userID, basketID) => {
+    try {
+        const res = await axios.delete(`${API}/users/${userID}/basket/${basketID}/storeitems/${basketStoreItemID}`)
+        return res.data
+    } catch (error) {
+        console.error(error)
+        throw error
+    }
+}
+/**
+ * takes in a single basket ID and then deletes from the db
+ * @param {Number} basketID - ID of the basket to be deleted
+ * @param {Number} userID - ID of the owner of the basketStoreItem
+ * @returns {True|null} - if the delete was succesful, return true, otherwise return null
+ */
+const deleteOneBasket = async (basketID, userID) => {
+    try {
+        const res = await axios.delete(`${API}/users/${userID}/basket/${basketID}`)
+        return res.data
+    } catch (error) {
+        console.error(error)
+        throw error
+    }
+}
+
+
+/**
+ * takes in a usersID and deletes all basket and basketStoreItems for the user.
+ * @param {Number} userID - the userID of the user that ALL baskets and basketStoreItems will be deleted.
+ * @return {True|null} - if the call was succesful, return true, otherwise return null
+ */
+const deleteAllUserRelatedBaskets = async (userID) => {
+    let flag = null
+    // get all users baskets
+    const basketIDs = await checkIfCurrentUserHasBasket(userID, true, null)
+    const baskets = await checkIfCurrentUserHasBasket(userID, true, true)
+    console.log('baskets:\n',baskets,'\nbasketIds\n',basketIDs)
+
+    // get all store items for baskets
+    for (const basket of baskets) {
+        const basketID = basket.id
+        const storeItems = await getAllBasketStoreItemsFromBasketID(basketID,userID)
+        for(const item of storeItems) {
+            const itemID = item.id
+            const res = await deleteOneBasketStoreItem(itemID,userID,basketID)
+            if(!res.data){
+                flag = false
+            }
+        }
+        // with all the storeItems gone, finally delete the basket
+        const res = await deleteOneBasket(basketID, userID)
+        if(!res.data){
+            flag = false
+        }
+    }
+    return true
+}
+
 
 
 
@@ -431,6 +519,9 @@ export {
     sortBasketItemsByDispensary,
     postBatchOrder,
     postSingleOrder,
-    postOrderStoreItem
+    postOrderStoreItem,
+    deleteAllUserRelatedBaskets,
+    deleteOneBasket,
+    deleteOneBasketStoreItem
 
 }
