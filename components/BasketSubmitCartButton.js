@@ -16,7 +16,6 @@ const BasketSubmitCartButton = () => {
     const handleSubmit = async () => {
         let successFlag = false
 
-        /*
         // preparing order object
         let orderInfo = {
             total: null, // not needed, need to update function's jsdocs
@@ -52,10 +51,7 @@ const BasketSubmitCartButton = () => {
        if (!res.data){
            successFlag = false
         }
-        
         //reset all states pertaining to basket
-        */
-
        setBasketItems([])
        setBasketID(null)
        setSubtotal(0)
@@ -68,24 +64,6 @@ const BasketSubmitCartButton = () => {
           index: 0,
           routes: [{ name: 'Dispensaries' }],
         }))
-
-
-
-
-
-       //deleting all basketItems:
-       // takes in userID,
-       // makes in get to users basket
-       // gets all the basket's ids, stores in array
-       // from there, does a get call to each unique basketID for its storeItems, stores in array
-       // from there loop through each store storeItem to delete each basketStoreItem
-       // once empty, delte the basket
-
-
-       // now that we finished our posts; we can remove ALL of users baskets ( should be only 1 at a time anyway )
-       // we can remove from state all values pertaining to basket ( see userProvider, BasketIndex, etc )
-
-
     }
 
 

@@ -17,7 +17,7 @@ const NavBar = () => {
             <NavBarButton type={'Home'}/>
             <NavBarButton type={'Cart'}/>
             <NavBarButton type={'Settings'}/>
-            <NavBarButton type={'Help'}/>
+            {/* <NavBarButton type={'Help'}/> */}
         </View>
     );
 };

@@ -1,12 +1,39 @@
 import React from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import styles from './NavBarButtonStyles.js'
 
 const NavBarButton = ({type}) => {
-    let iconImage;
+    const navigation = useNavigation();
 
-    const handlePress = (type) => {
+    let iconImage;
+    const buttonType = type
+
+    const handlePress = (buttonType) => {
+        console.log('press from button:',)
+        switch (type) {
+            case 'Home':
+                navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [{ name: 'Dispensaries' }],
+                    }))
+                break;
+            case 'Cart':
+                navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [{ name: 'Basket' }],
+                    }))
+                break
+            case 'Settings':
+                break
+            default:
+                iconImage = null;
+                break;
+        }
         // Insert Logic Here
+
     }
 
     switch (type) {
