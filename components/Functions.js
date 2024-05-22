@@ -497,18 +497,31 @@ const deleteAllUserRelatedBaskets = async (userID) => {
 }
 
 
+/**
+ * Represents an order.
+ * @typedef {Object} Order
+ * @property {string} orderId - The ID of the order.
+ * @property {string} productName - The name of the product.
+ * @property {number} quantity - The quantity of the product ordered.
+ */
+/**
 
-
-
-// create post single order function
-// create post single order storeItem function
-
-// create post batch order function
-
-
-// send order function
-// populate order items function
-
+/**
+ * 
+ * @param {Number} userID - the user ID of the user to retrieve the orders from.
+ * @return {<Array>Order|null}- returns an array of Order objects or null
+ */
+const getUsersOrders = async (userID) => {
+    try {
+        const res = await axios.get(`${API}/users/${userID}/order`)
+        // console.log('ress',res.data)
+        return res.data
+        
+    } catch (error) {
+        console.error(error)
+        return null
+    }
+}
 
 export { 
     checkIfCurrentUserHasBasket,
@@ -522,6 +535,7 @@ export {
     postOrderStoreItem,
     deleteAllUserRelatedBaskets,
     deleteOneBasket,
-    deleteOneBasketStoreItem
+    deleteOneBasketStoreItem,
+    getUsersOrders
 
 }

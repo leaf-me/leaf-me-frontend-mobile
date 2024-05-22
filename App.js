@@ -24,7 +24,7 @@ export default function App() {
         <UserProvider>
         <SearchToggleProvider>
           <DispensariesProvider>
-            <Stack.Navigator initialRouteName="Basket">
+            <Stack.Navigator initialRouteName="Orders">
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Dispensaries" component={Dispensaries} options={{ headerShown: false }}/>
               <Stack.Screen name="DispensariesShow" component={DispensariesShow} options={{ headerShown: false }}/>

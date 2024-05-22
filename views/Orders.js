@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useContextProvider } from '../Providers/Provider';
-import { useUserContext } from '../Providers/UserProvider';
+import { getUsersOrders } from '../components/Functions.js'
 
 const Orders = () => {
-    const { API, axios } = useContextProvider()
-    const { userID } = useUserContext()
+    const { userID } = useContextProvider()
+    const [userOrders, setUserOrders] = useState([])
 
-    console.log(API,axios,userID)
+    // Helpers
+    const fetchUsersOrders = async (userID) => {
+        const orders = await getUsersOrders(userID)
+        setUserOrders(orders)
+        // console.log('userOrders:',userOrders)
+    }
+
+    // Hooks
+    useEffect(() => {
+        fetchUsersOrders(userID)
+    },[userID])
+
+    // Logic
 
     return (
         <View>
