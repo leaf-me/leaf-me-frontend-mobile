@@ -1,5 +1,5 @@
 import React from 'react';
-import DispensariesIndex from '../components/dispensariesIndex';
+import DispensariesIndex from '../components/DispensariesIndex';
 import DispensariesProvider from '../Providers/DispensariesProvider';
 import Header from '../components/Header';
 import NavBar from '../components/NavBar';
