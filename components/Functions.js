@@ -3,7 +3,7 @@ import axios from 'axios'
 
 /**
  * retrieves all the storeItems. used to retrieve storeItems names for BasketItems and OrderItems tables.
- * @returns {Promise<Array><Object>}
+ * @returns {<Array><Object>}
  */
 const getAllStoreItems = async () => {
     try {
@@ -523,6 +523,20 @@ const getUsersOrders = async (userID) => {
     }
 }
 
+/**
+ * get one dispensary by id
+ * @param {Number} dispensaryID - the dispensaryID of dispensary to get.
+ * @return {Object|null} - returns a Dispensary Object
+ */
+const getOneDispensary = async (dispensaryID) => {
+    try {
+        const res = await axios.get(`${API}/dispensary/${dispensaryID}`)
+        return res.data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 export { 
     checkIfCurrentUserHasBasket,
     createNewBasket,
@@ -536,6 +550,7 @@ export {
     deleteAllUserRelatedBaskets,
     deleteOneBasket,
     deleteOneBasketStoreItem,
-    getUsersOrders
+    getUsersOrders,
+    getOneDispensary
 
 }
