@@ -38,8 +38,8 @@ const ordersIndex = ({pendingOrders, completedOrders}) => {
     console.log('storeItems',storeItems)
 
     return (
-        <View styles={styles.viewContainer}>
-            <Text>Pending Orders</Text>
+        <View style={styles.viewContainer}>
+            <Text style={styles.pendingH}>Pending Orders</Text>
             <View style={styles.pendingContainer}>
             {
                 pendingOrders ?
@@ -51,7 +51,7 @@ const ordersIndex = ({pendingOrders, completedOrders}) => {
                 : <Text>None</Text>
             }
             </View>
-            <Text>Complete Orders</Text>
+            <Text style={styles.pendingH} >Complete Orders</Text>
             <View style={styles.completeContainer}>
             {
                 completedOrders ?
