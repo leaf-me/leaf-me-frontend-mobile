@@ -5,7 +5,7 @@ import styles from './OrdersItemStyles.js'
 
 
 const ordersItem = ({clientUserID, dispensaryID, orderID, status, total, storeItemsDictionary}) => {
-    console.log('ordersItem orderinfo:\n',clientUserID, dispensaryID, orderID, status, total, storeItemsDictionary)
+    // console.log('ordersItem orderinfo:\n',clientUserID, dispensaryID, orderID, status, total, storeItemsDictionary)
     const [dispensary, setDispensary] = useState({})
     const defaultImage = require('../assets/weeddefault.png')
     let orderItem = {}
@@ -39,13 +39,23 @@ const ordersItem = ({clientUserID, dispensaryID, orderID, status, total, storeIt
                         <Text style={styles.bItemText}> 4 Items</Text>  
                     </View>
                     <View style={styles.bItem}>
-                        <Text style={styles.bItemText}>$50.00</Text>  
+                        <Text style={styles.bItemText}>{total && `$${total}`}</Text>  
                     </View>
                     <View style={styles.bItem}>
                         <Text style={styles.bItemText}>2024-05-29</Text>  
                     </View>
                     <View style={styles.bItem}>
-                        <Text style={styles.bItemText}>Processing</Text> 
+                        {/*
+                        logic to be implemented:
+                            if status = NEW
+                                render dispensary processing
+                            if status = AWAITING
+                                render awaiting pickup
+                            if status = PICKED
+                                render in route
+                            
+                        */}
+                        <Text style={styles.bItemText}>{status}</Text> 
                     </View>
                 </View>
             </View>

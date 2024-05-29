@@ -11,7 +11,7 @@ const ordersIndex = ({pendingOrders, completedOrders}) => {
     const [storeItemsArr, setStoreItemsArr] = useState([])
 
     const renderItem = ({item}) => {
-        console.log('rendering this item\n',item,'\n')
+        // console.log('rendering this item\n',item,'\n')
         return (
             <OrdersItem clientUserID={item.client_user_id} dispensaryID={item.dispensary_id} orderID={item.id} status={item.status} total={item.total} storeItemsDictionary={storeItems} />
         )
