@@ -28,7 +28,10 @@ const Orders = () => {
         console.log('\nsortOrdersByCompleteOrOther\ncomplete Orders:\n',tempCompleteOrders,'\nPending Orders:\n',tempPendingOrders)
         setCompleteOrders(tempCompleteOrders)
         setPendingOrders(tempPendingOrders)
-
+        console.log('\x1b[34m%s\x1b[0m','pendingOrders\n')
+        console.log(tempPendingOrders)
+        console.log('\x1b[34m%s\x1b[0m','completeORders\n')
+        console.log(tempCompleteOrders)
 
     }
 
