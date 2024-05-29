@@ -529,7 +529,10 @@ const getUsersOrders = async (userID) => {
  * @return {Object|null} - returns a Dispensary Object
  */
 const getOneDispensary = async (dispensaryID) => {
+    // console.log('getOneDispensary',`${API}/dispensary/${dispensaryID}`)
+
     try {
+        
         const res = await axios.get(`${API}/dispensary/${dispensaryID}`)
         return res.data
     } catch (error) {

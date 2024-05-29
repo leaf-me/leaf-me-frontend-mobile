@@ -33,7 +33,7 @@ export default styles = StyleSheet.create({
     bContainer: {
         flexDirection: 'row,',
         flexWrap: 'wrap',
-        height: '100%',
+        height: '75%',
         padding: 5,
         justifyContent: 'space-between'
     },
