@@ -46,6 +46,7 @@ const Orders = () => {
         <View>
             <Header/>
                 <OrdersIndex pendingOrders={pendingOrders} completedOrders={completeOrders}/>
+                <View style={{marginBottom: 85,}}></View>
             <NavBar/>
         </View>
     );

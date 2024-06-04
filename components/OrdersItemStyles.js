@@ -7,28 +7,28 @@ export default styles = StyleSheet.create({
         // margin: 10,
         // paddingTop: 2.5,
         // paddingBottom: 2.5,
-        backgroundColor: 'red',
+        // backgroundColor: 'red',
         flexDirection: 'row',
         // height: 120,
         width: '100%',
+        backgroundColor: 'lightgray'
     },
     aColumn1: {
         height: 60,
-        backgroundColor: 'blue',
+        // backgroundColor: 'red',
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
+        flex: 0.8,
     },
     aColumn2: {
         height: 60,
-        flex: 2,
-        backgroundColor: 'pink'
-
+        flex: 2.5,
+        backgroundColor: 'lightgray',
     },
     aColumn3: {
-        backgroundColor: 'orange',
+        // backgroundColor: 'orange',
         height: 60,
-        flex: 1,
+        flex: 0.2,
     },
     bContainer: {
         flexDirection: 'row,',
@@ -40,7 +40,7 @@ export default styles = StyleSheet.create({
     bItem: {
         width: '50%',
         height: '48%',
-        backgroundColor: 'lightgray',
+        // backgroundColor: 'lightgray',
         justifyContent: 'center',
         alignItems: 'center',
         // marginBottom: 5,

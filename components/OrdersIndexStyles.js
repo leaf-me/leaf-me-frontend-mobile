@@ -2,6 +2,8 @@ import { StyleSheet } from "react-native"
 
 export default styles = StyleSheet.create({
     pendingH: {
+        marginTop: 10,
+        marginBottom: 10,
         fontSize: 20,
 
     },
@@ -20,7 +22,8 @@ export default styles = StyleSheet.create({
         height: 135,
     },
     completeContainer: {
-        height: 440
+        height: 300,
+        // backgroundColor: 'red',
     }
 
 })

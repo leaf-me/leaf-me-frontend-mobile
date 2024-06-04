@@ -24,7 +24,10 @@ const ordersItem = ({clientUserID, dispensaryID, orderID, status, total, storeIt
     },[dispensaryID])
 
     // console.log('disState',dispensary.name)
-    // retrieve further details about the item via reference to storeItems
+
+    // retrieve all storeItems relating to this parent order item, to be rendered on the orderItemShow component onPress of aContainer
+
+    // retrieve further details about the item  ( order Store Itemvia reference to storeItems
  
     return (
         <View style={styles.aContainer}>
