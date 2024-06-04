@@ -16,7 +16,7 @@ const NavBar = () => {
         <View style={styles.container}>
             <NavBarButton type={'Home'}/>
             <NavBarButton type={'Cart'}/>
-            <NavBarButton type={'Settings'}/>
+            <NavBarButton type={'Orders'}/>
             {/* <NavBarButton type={'Help'}/> */}
         </View>
     );

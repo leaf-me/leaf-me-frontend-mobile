@@ -26,14 +26,17 @@ const NavBarButton = ({type}) => {
                       routes: [{ name: 'Basket' }],
                     }))
                 break
-            case 'Settings':
+            case 'Orders':
+                navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [{ name: 'Orders' }],
+                    }))
                 break
             default:
                 iconImage = null;
                 break;
         }
-        // Insert Logic Here
-
     }
 
     switch (type) {
@@ -43,7 +46,7 @@ const NavBarButton = ({type}) => {
         case 'Cart':
             iconImage = require('../assets/NavCartIcon.png')
             break
-        case 'Settings':
+        case 'Orders':
             iconImage = require('../assets/NavUserSettingsIcon.png')
             break
         default:
