@@ -22,7 +22,7 @@ export default styles = StyleSheet.create({
         height: 135,
     },
     completeContainer: {
-        height: 300,
+        height: 280,
         // backgroundColor: 'red',
     }
 
