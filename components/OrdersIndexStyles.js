@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native"
 
 export default styles = StyleSheet.create({
     pendingH: {
-        marginTop: 10,
+        marginTop: 20,
         marginBottom: 10,
         fontSize: 20,
 
