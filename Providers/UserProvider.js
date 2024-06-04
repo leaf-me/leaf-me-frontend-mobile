@@ -17,6 +17,7 @@ const UserProvider = ({children}) => {
     const [basketID, setBasketID] = useState(null)
     const [currentUserHasBasket, setCurrentUserHasBasket] = useState(false)
     const [error, setError] = useState(null)
+    const [triggerRerenderFlag, setTriggerRerenderFlag] = useState(null)
 
     const handleQuantityChange2 = (itemId, newQuantity) => {
         if(itemId && newQuantity){
@@ -28,6 +29,11 @@ const UserProvider = ({children}) => {
             )
         );
     };
+
+    const toggleRerenderFlag = (triggerRerenderFlag) => {
+        console.log('rerenderTrigger')
+        setTriggerRerenderFlag(!triggerRerenderFlag)
+    }
 
 
     // whenever the component is first mounted; we need to check for users basket.
@@ -118,14 +124,16 @@ const UserProvider = ({children}) => {
             }
         }
         initBasket(userID)
-    },[userID])
+    },[userID,triggerRerenderFlag])
+
+
 
 
 
     return (
         <UserContext.Provider
         value={{
-            basketItems, basketID, currentUserHasBasket, error, subtotal, totalItems, setTotalItems, handleQuantityChange2, setBasketItems, setBasketID, setCurrentUserHasBasket, setSubtotal
+            basketItems, basketID, currentUserHasBasket, error, subtotal, totalItems, setTotalItems, handleQuantityChange2, setBasketItems, setBasketID, setCurrentUserHasBasket, setSubtotal, triggerRerenderFlag, setTriggerRerenderFlag, toggleRerenderFlag
         }}>
             {children}
         </UserContext.Provider>
