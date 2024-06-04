@@ -46,7 +46,8 @@ const Orders = () => {
         <View>
             <Header/>
                 <OrdersIndex pendingOrders={pendingOrders} completedOrders={completeOrders}/>
-                <View style={{marginBottom: 75,}}></View> {/* This is to position the navbar at the correct location, may need tweaking to work with all devices by using dimensions object provided by react native*/}
+                {/* This is to position the navbar at the correct location, may need tweaking to work with all devices by using dimensions object provided by react native*/}
+                <View style={{marginBottom: 75,}}></View> 
             <NavBar/>
         </View>
     );
