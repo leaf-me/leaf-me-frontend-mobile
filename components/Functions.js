@@ -439,6 +439,7 @@ const postBatchOrder = async (batchOfOrders, userID) => {
  * @returns {True|null} - if the delete was succesful, return true, otherwise return null
  */
 const deleteOneBasketStoreItem = async (basketStoreItemID, userID, basketID) => {
+    console.log('Funciton.js LOG\n',basketStoreItemID, userID, basketID )
     try {
         const res = await axios.delete(`${API}/users/${userID}/basket/${basketID}/storeitems/${basketStoreItemID}`)
         return res.data

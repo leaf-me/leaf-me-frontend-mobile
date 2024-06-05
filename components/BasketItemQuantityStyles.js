@@ -20,6 +20,10 @@ const styles = StyleSheet.create({
     buttonTextDec:{
         paddingVertical: 5,
     },
+    buttonTextDecZero:{
+        paddingVertical: 5,
+        paddingRight: 20,
+    },
     buttonTextInc:{
         paddingVertical: 5,
     },
@@ -28,11 +32,20 @@ const styles = StyleSheet.create({
     },
     buttonDec:{
         borderRadius: 20,
+        paddingHorizontal: 5,
+        paddingVertical: 0,
+        // paddingRight: 20,
+        // backgroundColor: 'blue',
+        height: 30,
+        width: 30,
+    },
+    buttonDecZero:{
+        borderRadius: 20,
         paddingHorizontal: 10,
         paddingVertical: 0,
         // backgroundColor: 'blue',
         height: 30,
-        width: 30,
+        width: 45,
     },
     buttonInc:{
         borderRadius: 20,

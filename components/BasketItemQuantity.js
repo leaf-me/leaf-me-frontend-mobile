@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Button, Text, TouchableOpacity } from 'react-native';
 import styles from './BasketItemQuantityStyles'
+import { deleteOneBasketStoreItem } from './Functions';
+import { useUserContext } from '../Providers/UserProvider';
 
-const BasketItemQuantity = ({quantity, onQuantityChange}) => {
+const BasketItemQuantity = ({quantity, onQuantityChange, basketInfo}) => {
+    const { toggleRerenderFlag, handleRemoveBasketItem, basketItems, triggerRerenderFlag } = useUserContext()
 
     const handleIncrement = () => {
         onQuantityChange(quantity + 1)
@@ -11,6 +14,15 @@ const BasketItemQuantity = ({quantity, onQuantityChange}) => {
     const handleDecrement = () => {
         if(quantity > 1){
             onQuantityChange(quantity - 1)
+        } else if (quantity == 1){
+            console.log('DELETE THIS basketITEM',basketInfo)
+            deleteOneBasketStoreItem(basketInfo.basketStoreItemID, basketInfo.userID, basketInfo.basketID)
+            onQuantityChange(quantity - 1)
+            // remove basketStoreItem from state to reflect on FE
+            handleRemoveBasketItem(basketInfo.basketStoreItemID, basketItems)
+            toggleRerenderFlag(triggerRerenderFlag)
+            // toggleRerenderFlag()
+
         }
         
     }
@@ -19,9 +31,9 @@ const BasketItemQuantity = ({quantity, onQuantityChange}) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.decContainer}>
+            <View style={quantity == 1 ? styles.buttonDecZero: styles.buttonDec}>
                 <TouchableOpacity style={styles.buttonDec} onPress={handleDecrement}>
-                    <Text style={styles.buttonTextDec}>-</Text>
+                    <Text style={quantity == 1 ? styles.buttonTextDecZero: styles.buttonTextDec}>{quantity == 1 ? '🗑': '-'}</Text>
                 </TouchableOpacity>
             </View> 
             <Text style={styles.quantityCount}>{quantity}</Text>

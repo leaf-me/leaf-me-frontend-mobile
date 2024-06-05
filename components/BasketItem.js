@@ -4,12 +4,14 @@ import BasketItemQuantity from './BasketItemQuantity';
 import styles from './BasketItemStyles'
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../Providers/UserProvider.js';
+import { useContextProvider } from '../Providers/Provider.js';
 
 const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
     const { totalItems, subtotal, setSubtotal, setTotalItems, basketItems, handleQuantityChange2 } = useUserContext()
     const [quantityState, setQuantityState] = useState(1)
     // this subtotal state is to temporaily render the price * quantity
     const [subtotalState, setSubtotalState] = useState(0)
+    const { userID } = useContextProvider()
     
     // when the quantity from the req comes in, store it in state so we can temporaily edit it
     // also updates our basketItems state to reflect for our handleSubmit to be up to date
@@ -44,6 +46,9 @@ const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
     },[quantityState])
 
 
+    // function that takes in basketID and then removes a basket at that ID... also will 
+
+
     const handleQuantityChange = (newQuantity) => {
         if(newQuantity > quantityState){
             const subtotalWithoutSymbol = subtotal.replace('$','')
@@ -67,7 +72,6 @@ const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
         }
         setQuantityState(newQuantity)
         handleQuantityChange2(id, newQuantity)
-
     }
 
     return (
@@ -78,7 +82,11 @@ const BasketItem = ({basketId, id, quantity, storeItemID, name, price}) => {
             </View>
             {/* column 2, containing the quantity buttons + items price*/}
             <View style={styles.column2}>
-                <BasketItemQuantity quantity={quantityState} onQuantityChange={handleQuantityChange}></BasketItemQuantity>
+                <BasketItemQuantity basketInfo={{
+                    basketID: basketId,
+                    basketStoreItemID: id,
+                    userID: userID
+                }} quantity={quantityState} onQuantityChange={handleQuantityChange}></BasketItemQuantity>
                 <Text style={styles.price}> ${(subtotalState).toFixed(2)}</Text>
             </View>
         </View>

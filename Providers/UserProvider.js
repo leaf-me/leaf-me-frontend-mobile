@@ -30,6 +30,24 @@ const UserProvider = ({children}) => {
         );
     };
 
+    /**
+     * takes in a basketStoreItemID, deletes the related basketStoreItem, then returns the new basketItems array state
+     * @param {Number} basketStoreItemID - id of the basketStoreItem
+     * @param {<Array><Object>} basketItems - arrayOfBasketItems state
+     * @returns {<Array><Object>} - returns all of the basketItems that does not have an ID of the input basketStoreItemID
+     */
+    const handleRemoveBasketItem = (basketStoreItemID, basketItems) => {
+        if(basketStoreItemID){
+            console.log('\nLOG userProvider:\n basketStoreItemID being removed from basketItems state object with this id:',basketStoreItemID)
+        }
+        const mutatedBasketItems = basketItems.filter(basketItem => {
+            if(basketItem.id !== basketStoreItemID){
+                return true
+            }
+            return mutatedBasketItems
+        })
+    }
+
     const toggleRerenderFlag = (triggerRerenderFlag) => {
         console.log('rerenderTrigger')
         setTriggerRerenderFlag(!triggerRerenderFlag)
@@ -129,11 +147,10 @@ const UserProvider = ({children}) => {
 
 
 
-
     return (
         <UserContext.Provider
         value={{
-            basketItems, basketID, currentUserHasBasket, error, subtotal, totalItems, setTotalItems, handleQuantityChange2, setBasketItems, setBasketID, setCurrentUserHasBasket, setSubtotal, triggerRerenderFlag, setTriggerRerenderFlag, toggleRerenderFlag
+            basketItems, basketID, currentUserHasBasket, error, subtotal, totalItems, setTotalItems, handleQuantityChange2, setBasketItems, setBasketID, setCurrentUserHasBasket, setSubtotal, triggerRerenderFlag, setTriggerRerenderFlag, toggleRerenderFlag, handleRemoveBasketItem
         }}>
             {children}
         </UserContext.Provider>
