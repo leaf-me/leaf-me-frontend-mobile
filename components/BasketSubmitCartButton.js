@@ -9,7 +9,7 @@ import {  postSingleOrder, postBatchOrder, postOrderStoreItem, sortBasketItemsBy
 const BasketSubmitCartButton = () => {
     const navigation = useNavigation();
     const { userID } = useContextProvider()
-    const { setBasketItems, setBasketID, setSubtotal, setTotalItems, setCurrentUserHasBasket } = useUserContext()
+    const { setBasketItems, setBasketID, setSubtotal, setTotalItems, setCurrentUserHasBasket, basketItems } = useUserContext()
     // const [batchOfOrders, setBatchOfOrders] = useState([])
     console.log('basket function user', userID)
 
@@ -35,7 +35,7 @@ const BasketSubmitCartButton = () => {
        } else if (!(orders.length <=  0)){
         let dispensaryID = orders.items[0].dispensary_id
         const responseOrder = await postSingleOrder(orders)
-        let orderID = responseOrder.data.id
+        let orderID = responseOrder.id
         const responeStoreItem = await postOrderStoreItem(orders, orderID, userID)
         console.log('goodResult if not undf',responeStoreItem.id)
         if(responeStoreItem.id){
