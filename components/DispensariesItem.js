@@ -23,6 +23,9 @@ const DispensariesItem = ({name, address, deliveryfee, image, dispensaryId}) => 
             case 'dis1.jpg':
                 imageSrc = require('../assets/dis1.jpg')
                 return imageSrc
+            case 'dis2.png':
+                imageSrc = require('../assets/dis2.png')
+                return imageSrc
             default:
                 imageSrc = require('../assets/dis3.png');
                 return imageSrc
