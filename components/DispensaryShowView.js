@@ -25,7 +25,6 @@ const DispensaryShowView = () => {
 
     let imageSrc
     const {name, address, deliveryfee, image,id} = dispensaries[dispensaryShowID-1]
-
     const findImageThenRender = (imageFileName, defaultImg) => {
         switch (imageFileName) {
             case 'dis1.jpg':
@@ -76,7 +75,7 @@ const DispensaryShowView = () => {
             <Image
             style={{ height: 225, width: screenWidth-5, borderRadius: 20, marginBottom: 20,}}
             source={imageSrc} />
-      
+            <View style={{height: 230}}>
             {
                 dispensaryItems ? (
                     <FlatList
@@ -87,6 +86,7 @@ const DispensaryShowView = () => {
                 ) : (
                     <></>
                 )}
+            </View>
         </View>
     );
 };

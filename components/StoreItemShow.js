@@ -62,19 +62,39 @@ const StoreItemShow = () => {
     const [quantity, setQuantity] = useState(1)
     console.log('storeItemShow:','name',name,'description',description,'price',price,'type',type,'image',image,'storeItemID',id)
 
-    const findImageThenRenderBasedOnType = (type) => {
-        // switch case based on the image
-        switch (type) {
-            case 'flower':
-                return flower1Img
-            case 'edible':
-                return edible1Img
+    // const findImageThenRenderBasedOnType = (type) => {
+    //     // switch case based on the image
+    //     switch (type) {
+    //         case 'flower':
+    //             return flower1Img
+    //         case 'edible':
+    //             return edible1Img
         
+    //         default:
+    //             return defaultImg
+    //     }
+    // }
+    // const imageSrc = findImageThenRenderBasedOnType(type)
+    let imageSrc
+    const findImageThenRender = (imageFileName, defaultImg) => {
+        console.log(image)
+        switch (imageFileName) {
+            case 'd2i1.jpg':
+                imageSrc = require('../assets/d2i1.jpeg')
+                return imageSrc
+            case 'd2i2.jpg':
+                imageSrc = require('../assets/d2i2.jpeg')
+                return imageSrc
+            case 'd2i3.jpg':
+                imageSrc = require('../assets/d2i3.jpeg')
+                return imageSrc
             default:
-                return defaultImg
+                imageSrc = require('../assets/dis3.png');
+                return imageSrc
         }
     }
-    const imageSrc = findImageThenRenderBasedOnType(type)
+    imageSrc = findImageThenRender(image, null)
+
 
     const handleQuantityChange = (newQuantity) => {
         setQuantity(newQuantity)
