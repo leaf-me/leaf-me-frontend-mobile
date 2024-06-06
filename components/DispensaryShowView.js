@@ -13,15 +13,36 @@ const DispensaryShowView = () => {
     const [dispensaryItems, setDispensaryItems] = useState(null)
     const screenWidth = Dimensions.get('window').width;
 
-    const findImageThenRender = (imageFileName, disp1Img, disp2Img, disp3Img) => {
-        if(imageFileName === 'image1.jpg'){
-            return disp1Img
-        } else if (imageFileName === 'image2.jpg'){
-            return disp2Img
-        } else {
-            return disp3Img
+    // const findImageThenRender = (imageFileName, disp1Img, disp2Img, disp3Img) => {
+    //     if(imageFileName === 'image1.jpg'){
+    //         return disp1Img
+    //     } else if (imageFileName === 'image2.jpg'){
+    //         return disp2Img
+    //     } else {
+    //         return disp3Img
+    //     }
+    // }
+
+    let imageSrc
+    const {name, address, deliveryfee, image,id} = dispensaries[dispensaryShowID-1]
+
+    const findImageThenRender = (imageFileName, defaultImg) => {
+        switch (imageFileName) {
+            case 'dis1.jpg':
+                imageSrc = require('../assets/dis1.jpg')
+                return imageSrc
+            case 'dis2.png':
+                imageSrc = require('../assets/dis2.png')
+                return imageSrc
+            case 'dis4.png':
+                imageSrc = require('../assets/dis4.png')
+                return imageSrc
+            default:
+                imageSrc = require('../assets/dis3.png');
+                return imageSrc
         }
     }
+    imageSrc = findImageThenRender(image, null)
 
     useEffect(() => {
         if (dispensaries && dispensaryShowID !== null && dispensaries[dispensaryShowID]) {
@@ -36,9 +57,8 @@ const DispensaryShowView = () => {
             }
         }, [dispensaries, dispensaryShowID]);
 
-    const {name, address, deliveryfee, image,id} = dispensaries[dispensaryShowID-1]
-    const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
-    // console.log(dispensaryItems)
+    // const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
+    // // console.log(dispensaryItems)
 
     const renderItem = ({item}) => (
         <StoreItem dispensaryID={item.dispensary_id} image={item.image} type={item.type} id={item.id} name={item.name} price={item.price} description={item.description}/>
