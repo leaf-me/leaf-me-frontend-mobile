@@ -3,9 +3,6 @@ import { Text, Image, View, Dimensions, TouchableOpacity } from 'react-native';
 import { useDisProvider } from '../Providers/DispensariesProvider';
 import styles from './DispensariesIndexStyles';
 import { useNavigation } from '@react-navigation/native';
-import disp1Img from '../assets/dis1.png'
-import disp2Img from '../assets/dis2.png'
-import disp3Img from '../assets/dis3.png'
 
 
 const DispensariesItem = ({name, address, deliveryfee, image, dispensaryId}) => {
@@ -19,17 +16,20 @@ const DispensariesItem = ({name, address, deliveryfee, image, dispensaryId}) => 
 
     }
 
-    const findImageThenRender = (imageFileName, disp1Img, disp2Img, disp3Img) => {
-        if(imageFileName === 'image1.jpg'){
-            return disp1Img
-        } else if (imageFileName === 'image2.jpg'){
-            return disp2Img
-        } else {
-            return disp3Img
+    
+    let imageSrc
+    const findImageThenRender = (imageFileName, defaultImg) => {
+        switch (imageFileName) {
+            case 'dis1.jpg':
+                imageSrc = require('../assets/dis1.jpg')
+                return imageSrc
+            default:
+                imageSrc = require('../assets/dis3.png');
+                return imageSrc
         }
     }
 
-    const imageSrc = findImageThenRender(image, disp1Img, disp2Img, disp3Img)
+    imageSrc = findImageThenRender(image, null)
 
     return (
         <TouchableOpacity onPress={handlePress}>
